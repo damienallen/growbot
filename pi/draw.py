@@ -13,17 +13,18 @@ base_path = Path(__file__).parent
 inky_display = InkyPHAT("red")
 
 # Display
-font = ImageFont.truetype(FredokaOne, 22)
+font = ImageFont.truetype(FredokaOne, 16)
 W = 104
 H = 212
 
-logo_height = 44
+logo_height = 42
 
-container_height = H - logo_height - 2
-item_height = round(container_height / 2)
-item_width = round(W / 2)
+margin = 2
+container_height = H - logo_height
+item_height = round(container_height / 2) - margin
+item_width = round((W - margin) / 2)
 
-half_item_height = round(item_height / 2)
+half_item_height = round(item_height / 2) - margin
 
 
 def get_screen_image() -> Image:
@@ -61,25 +62,26 @@ def add_clock(base: Image):
 
     time = datetime.now().strftime("%H:%M")
     draw_clock.rectangle((0, 0, item_width, half_item_height), fill=inky_display.BLACK)
-    draw_clock.text((2, 0), time, fill=inky_display.WHITE)
+    draw_clock.text((10, 14), time, fill=inky_display.WHITE)
 
-    base.paste(clock, (item_width + 1, 0))
+    base.paste(clock, (item_width + margin, 0))
 
 
 def add_light(base: Image):
     light = Image.new("I", (item_width, item_height))
     draw_light = ImageDraw.Draw(light)
 
-    draw_light.rectangle((0, 0, W, half_item_height - 1), fill=inky_display.BLACK)
+    draw_light.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
+    draw_light.text((8, 14), "19 NOV", fill=inky_display.WHITE)
 
-    base.paste(light, (item_width + 1, half_item_height))
+    base.paste(light, (item_width + margin, half_item_height + margin))
 
 
 def add_water(base: Image):
     water = Image.new("I", (item_width, item_height))
     draw_water = ImageDraw.Draw(water)
 
-    draw_water.rectangle((0, 0, W, item_height - 1), fill=inky_display.RED)
+    draw_water.rectangle((0, 0, W, item_height), fill=inky_display.RED)
 
     base.paste(water, (0, 0))
 
@@ -88,16 +90,18 @@ def add_temperature(base: Image):
     temp = Image.new("I", (item_width, item_height))
     draw_temp = ImageDraw.Draw(temp)
 
-    draw_temp.rectangle((0, 0, W, item_height - 1), fill=inky_display.BLACK)
-    # draw_temp.text((2, 0), "TEST", fill=inky_display.WHITE)
+    draw_temp.rectangle((0, 0, W, item_height), fill=inky_display.BLACK)
+    draw_temp.text((13, 20), "LOVE", fill=inky_display.WHITE)
+    draw_temp.text((16, 35), "YOU", fill=inky_display.WHITE)
+    draw_temp.text((13, 50), "BABE", fill=inky_display.WHITE)
 
-    base.paste(temp, (0, item_height + 1))
+    base.paste(temp, (0, item_height + margin))
 
 
 def add_humidity(base: Image):
     hum = Image.new("I", (item_width, item_height))
     draw_hum = ImageDraw.Draw(hum)
 
-    draw_hum.rectangle((0, 0, W, item_height - 1), fill=inky_display.RED)
+    draw_hum.rectangle((0, 0, W, item_height), fill=inky_display.RED)
 
-    base.paste(hum, (item_width + 1, item_height + 1))
+    base.paste(hum, (item_width + 2, item_height + margin))
