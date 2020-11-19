@@ -17,13 +17,13 @@ font = ImageFont.truetype(FredokaOne, 22)
 W = 104
 H = 212
 
-clock_width = 36
-clock_height = 14
-logo_height = 30
+logo_height = 44
 
-sensor_container_height = H - clock_height - logo_height - 3
-sensor_item_height = round(sensor_container_height / 2)
-sensor_item_width = round(W / 2)
+container_height = H - logo_height - 2
+item_height = round(container_height / 2)
+item_width = round(W / 2)
+
+half_item_height = round(item_height / 2)
 
 
 def get_screen_image() -> Image:
@@ -32,59 +32,72 @@ def get_screen_image() -> Image:
     base_img = Image.open(base_path / "assets" / "growbot.png")
 
     # Add dymanic components
-    add_clock(base_img)
-    add_sensors(base_img)
+    add_items(base_img)
 
     return base_img
+
+
+def add_items(base: Image):
+    """
+    Add dynamic sensor data
+    """
+    items = Image.new("I", (W, container_height))
+    add_clock(items)
+    add_light(items)
+    add_water(items)
+    add_temperature(items)
+    add_humidity(items)
+
+    items = items.rotate(90, expand=True)
+    base.paste(items, (0, 0))
 
 
 def add_clock(base: Image):
     """
     Add clock in upper-left corner
     """
-
-    clock = Image.new("I", (clock_width, clock_height))
+    clock = Image.new("I", (item_width, half_item_height))
     draw_clock = ImageDraw.Draw(clock)
 
     time = datetime.now().strftime("%H:%M")
-    draw_clock.rectangle(
-        (0, 0, clock_width + 1, clock_height + 1), fill=inky_display.BLACK
-    )
+    draw_clock.rectangle((0, 0, item_width, half_item_height), fill=inky_display.BLACK)
     draw_clock.text((2, 0), time, fill=inky_display.WHITE)
 
-    clock = clock.rotate(90, expand=True)
-    base.paste(clock, (0, W - clock_width))
+    base.paste(clock, (item_width + 1, 0))
 
 
-def add_sensors(base: Image):
-    """
-    Add dynamic sensor data
-    """
-    sensors = Image.new("I", (W, sensor_container_height))
-    draw_sensors = ImageDraw.Draw(sensors)
+def add_light(base: Image):
+    light = Image.new("I", (item_width, item_height))
+    draw_light = ImageDraw.Draw(light)
 
-    add_temperature(sensors)
-    add_humidity(sensors)
-    draw_sensors.text((2, 0), "TEST", fill=inky_display.WHITE)
+    draw_light.rectangle((0, 0, W, half_item_height - 1), fill=inky_display.BLACK)
 
-    sensors = sensors.rotate(90, expand=True)
+    base.paste(light, (item_width + 1, half_item_height))
 
-    base.paste(sensors, (clock_height + 1, 0))
+
+def add_water(base: Image):
+    water = Image.new("I", (item_width, item_height))
+    draw_water = ImageDraw.Draw(water)
+
+    draw_water.rectangle((0, 0, W, item_height - 1), fill=inky_display.RED)
+
+    base.paste(water, (0, 0))
 
 
 def add_temperature(base: Image):
-    temp = Image.new("I", (sensor_item_width, sensor_item_height))
+    temp = Image.new("I", (item_width, item_height))
     draw_temp = ImageDraw.Draw(temp)
 
-    draw_temp.rectangle((0, 0, W, sensor_item_height - 1), fill=inky_display.BLACK)
+    draw_temp.rectangle((0, 0, W, item_height - 1), fill=inky_display.BLACK)
+    # draw_temp.text((2, 0), "TEST", fill=inky_display.WHITE)
 
-    base.paste(temp, (0, 0))
+    base.paste(temp, (0, item_height + 1))
 
 
 def add_humidity(base: Image):
-    hum = Image.new("I", (sensor_item_width, sensor_item_height))
+    hum = Image.new("I", (item_width, item_height))
     draw_hum = ImageDraw.Draw(hum)
 
-    draw_hum.rectangle((0, 0, W, sensor_item_height - 2), fill=inky_display.RED)
+    draw_hum.rectangle((0, 0, W, item_height - 1), fill=inky_display.RED)
 
-    base.paste(hum, (sensor_item_width + 1, sensor_item_height + 1))
+    base.paste(hum, (item_width + 1, item_height + 1))
