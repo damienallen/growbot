@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
-from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont
-from inky.phat import InkyPHAT
-from font_fredoka_one import FredokaOne
 from datetime import datetime
+from pathlib import Path
+
+from font_fredoka_one import FredokaOne
+from inky.phat import InkyPHAT
+from PIL import Image, ImageDraw, ImageFont
 
 # Get the current path
 base_path = Path(__file__).parent
@@ -13,7 +14,9 @@ base_path = Path(__file__).parent
 inky_display = InkyPHAT("red")
 
 # Display
-font = ImageFont.truetype(FredokaOne, 16)
+fonts_dir = base_path / "assets" / "fonts"
+# font = ImageFont.truetype(FredokaOne, 14)
+header_font = ImageFont.truetype(str(fonts_dir / "vcr_osd_mono.ttf"), 12)
 W = 104
 H = 212
 
@@ -58,50 +61,61 @@ def add_clock(base: Image):
     Add clock in upper-left corner
     """
     clock = Image.new("I", (item_width, half_item_height))
-    draw_clock = ImageDraw.Draw(clock)
+    draw = ImageDraw.Draw(clock)
 
-    time = datetime.now().strftime("%H:%M")
-    draw_clock.rectangle((0, 0, item_width, half_item_height), fill=inky_display.BLACK)
-    draw_clock.text((10, 14), time, fill=inky_display.WHITE)
+    now = datetime.now()
+    time = now.strftime("%H:%M")
+    date = now.strftime("%d %b")
+
+    draw.rectangle((0, 0, item_width, half_item_height), fill=inky_display.BLACK)
+    draw.text((11, 6), time, fill=inky_display.WHITE)
+    draw.text((8, 20), date.upper(), fill=inky_display.WHITE)
 
     base.paste(clock, (item_width + margin, 0))
 
 
 def add_light(base: Image):
-    light = Image.new("I", (item_width, item_height))
-    draw_light = ImageDraw.Draw(light)
+    img = Image.new("I", (item_width, item_height))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle((0, 0, item_width, half_item_height), fill=inky_display.BLACK)
 
-    draw_light.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
-    draw_light.text((8, 14), "19 NOV", fill=inky_display.WHITE)
-
-    base.paste(light, (item_width + margin, half_item_height + margin))
-
-
-def add_water(base: Image):
-    water = Image.new("I", (item_width, item_height))
-    draw_water = ImageDraw.Draw(water)
-
-    draw_water.rectangle((0, 0, W, item_height), fill=inky_display.RED)
-
-    base.paste(water, (0, 0))
+    write_header("Lights", 5, draw)
+    write_header("On", 20, draw)
+    base.paste(img, (item_width + margin, half_item_height + margin))
 
 
 def add_temperature(base: Image):
-    temp = Image.new("I", (item_width, item_height))
-    draw_temp = ImageDraw.Draw(temp)
+    img = Image.new("I", (item_width, item_height))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle((0, 0, W, item_height), fill=inky_display.BLACK)
 
-    draw_temp.rectangle((0, 0, W, item_height), fill=inky_display.BLACK)
-    draw_temp.text((13, 20), "LOVE", fill=inky_display.WHITE)
-    draw_temp.text((16, 35), "YOU", fill=inky_display.WHITE)
-    draw_temp.text((13, 50), "BABE", fill=inky_display.WHITE)
+    write_header("Temp.", 0, draw)
+    base.paste(img, (0, 0))
 
-    base.paste(temp, (0, item_height + margin))
+
+def add_water(base: Image):
+    img = Image.new("I", (item_width, item_height))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle((0, 0, W, item_height), fill=inky_display.RED)
+
+    write_header("Moist.", 0, draw)
+    base.paste(img, (0, item_height + margin))
 
 
 def add_humidity(base: Image):
-    hum = Image.new("I", (item_width, item_height))
-    draw_hum = ImageDraw.Draw(hum)
+    img = Image.new("I", (item_width, item_height))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle((0, 0, W, item_height), fill=inky_display.BLACK)
 
-    draw_hum.rectangle((0, 0, W, item_height), fill=inky_display.RED)
+    write_header("Hum.", 0, draw)
+    base.paste(img, (item_width + 2, item_height + margin))
 
-    base.paste(hum, (item_width + 2, item_height + margin))
+
+def write_header(text: str, top_margin: int, draw: ImageDraw):
+    w, h = header_font.getsize(text)
+    draw.text(
+        ((item_width - w) / 2, top_margin),
+        text.upper(),
+        font=header_font,
+        fill=inky_display.WHITE,
+    )

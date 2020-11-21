@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-from draw import get_screen_image, base_path
-
+from draw import base_path, get_screen_image
 
 if __name__ == "__main__":
 

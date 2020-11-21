@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-from inky.auto import auto
 from draw import get_screen_image
-
+from inky.auto import auto
 
 if __name__ == "__main__":
 

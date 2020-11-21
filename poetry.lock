@@ -90,6 +90,19 @@ rpi-gpio-output = ["rpi.gpio"]
 
 [[package]]
 category = "dev"
+description = "A Python utility / library to sort Python imports."
+name = "isort"
+optional = false
+python-versions = ">=3.6,<4.0"
+version = "5.6.4"
+
+[package.extras]
+colors = ["colorama (>=0.4.3,<0.5.0)"]
+pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
+requirements_deprecated_finder = ["pipreqs", "pip-api"]
+
+[[package]]
+category = "dev"
 description = "McCabe checker, plugin for flake8"
 name = "mccabe"
 optional = false
@@ -214,7 +227,7 @@ python-versions = "*"
 version = "3.7.4.3"
 
 [metadata]
-content-hash = "5a3d0b6b29246d3323c0b16a42b51a55f6fd6588a75d5c4b027944d44c4fc509"
+content-hash = "0635f0d08c9ece8ac52a88519929b2e4911b099f407f936df6eda77dc94531da"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -245,6 +258,10 @@ inky = [
     {file = "inky-1.1.1-py2-none-any.whl", hash = "sha256:f86577b6a88768c5f2fef457019ef68f634f073f2d3c28aba751b797c083b755"},
     {file = "inky-1.1.1-py3-none-any.whl", hash = "sha256:911a31bc87f658a8a5f6928deff1894234946d9ef8c423602300b855dacf0783"},
     {file = "inky-1.1.1.tar.gz", hash = "sha256:80fff0a201b69890fb37d00d011db6eb487063367d77ad01c06ff9a81a8bdc01"},
+]
+isort = [
+    {file = "isort-5.6.4-py3-none-any.whl", hash = "sha256:dcab1d98b469a12a1a624ead220584391648790275560e1a43e54c5dceae65e7"},
+    {file = "isort-5.6.4.tar.gz", hash = "sha256:dcaeec1b5f0eca77faea2a35ab790b4f3680ff75590bfcb7145986905aab2f58"},
 ]
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
