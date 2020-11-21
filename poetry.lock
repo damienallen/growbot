@@ -63,14 +63,6 @@ flake8 = ">=3.0.0"
 
 [[package]]
 category = "main"
-description = "Fredoka One sans-serif font"
-name = "font-fredoka-one"
-optional = false
-python-versions = "*"
-version = "0.0.4"
-
-[[package]]
-category = "main"
 description = "Inky pHAT Driver"
 name = "inky"
 optional = false
@@ -227,7 +219,7 @@ python-versions = "*"
 version = "3.7.4.3"
 
 [metadata]
-content-hash = "0635f0d08c9ece8ac52a88519929b2e4911b099f407f936df6eda77dc94531da"
+content-hash = "08ee21acee8f8428d3b3f0b99b781fd2f584a69e0f3d11ba7c8673d970cbafed"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -248,11 +240,6 @@ flake8 = [
 ]
 flake8-black = [
     {file = "flake8-black-0.2.1.tar.gz", hash = "sha256:f26651bc10db786c03f4093414f7c9ea982ed8a244cec323c984feeffdf4c118"},
-]
-font-fredoka-one = [
-    {file = "font-fredoka-one-0.0.4.tar.gz", hash = "sha256:cd5fd4682f7cc79107d006793717c41bf902093c570b576b8219766052297417"},
-    {file = "font_fredoka_one-0.0.4-py2-none-any.whl", hash = "sha256:5eb2928eaf61d45271b38d88509ba27a73585dfb5b4760c727c75482e68207b7"},
-    {file = "font_fredoka_one-0.0.4-py3-none-any.whl", hash = "sha256:f177fdb46dcb7be565a68ece3a7b353a92cf038554a037f57b6303f6a5478ff8"},
 ]
 inky = [
     {file = "inky-1.1.1-py2-none-any.whl", hash = "sha256:f86577b6a88768c5f2fef457019ef68f634f073f2d3c28aba751b797c083b755"},
