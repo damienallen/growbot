@@ -16,9 +16,11 @@ H = 212
 
 # Fonts
 fonts_dir = base_path / "assets" / "fonts"
-header_font = ImageFont.truetype(str(fonts_dir / "vcr_osd_mono.ttf"), 12)
-value_font = ImageFont.truetype(str(fonts_dir / "rainy_hearts.ttf"), 40)
-
+main_font = "coders_crux.ttf"
+accent_font = "rainy_hearts.ttf"
+header_font = ImageFont.truetype(str(fonts_dir / main_font), 16)
+body_large_font = ImageFont.truetype(str(fonts_dir / accent_font), 40)
+body_small_font = ImageFont.truetype(str(fonts_dir / accent_font), 16)
 
 logo_height = 42
 margin = 2
@@ -47,9 +49,11 @@ def add_items(base: Image):
     items = Image.new("I", (W, container_height))
     add_clock(items)
     add_light(items)
-    add_water(items)
+    add_soil_moisture(items)
     add_temperature(items)
     add_humidity(items)
+    add_dew_point(items)
+    add_pressure(items)
 
     items = items.rotate(90, expand=True)
     base.paste(items, (0, 0))
@@ -61,15 +65,14 @@ def add_clock(base: Image):
     """
     clock = Image.new("I", (item_width, half_item_height))
     draw = ImageDraw.Draw(clock)
+    draw.rectangle((0, 0, item_width, half_item_height), fill=inky_display.BLACK)
 
     now = datetime.now()
     time = now.strftime("%H:%M")
     date = now.strftime("%d %b")
 
-    draw.rectangle((0, 0, item_width, half_item_height), fill=inky_display.BLACK)
-    draw.text((11, 6), time, fill=inky_display.WHITE)
-    draw.text((8, 20), date.upper(), fill=inky_display.WHITE)
-
+    write_header(time, draw, 10)
+    write_header(date.upper(), draw, 22)
     base.paste(clock, (item_width + margin, 0))
 
 
@@ -78,37 +81,60 @@ def add_light(base: Image):
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, item_width, half_item_height), fill=inky_display.BLACK)
 
-    write_header("Lights", draw, 5)
-    write_header("On", draw, 20)
+    write_header("Lights", draw, 10)
+    write_header("Off", draw, 22)
     base.paste(img, (item_width + margin, half_item_height + margin))
 
 
-def add_temperature(base: Image):
-    img = Image.new("I", (item_width, item_height))
-    draw = ImageDraw.Draw(img)
-    draw.rectangle((0, 0, W, item_height), fill=inky_display.BLACK)
-
-    write_header("Temp.", draw)
-    write_value("21", draw)
-    base.paste(img, (0, 0))
-
-
-def add_water(base: Image):
+def add_soil_moisture(base: Image):
     img = Image.new("I", (item_width, item_height))
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, W, item_height), fill=inky_display.RED)
 
-    write_header("Moist.", draw)
+    write_header("Soil", draw, 6)
+    write_header("Moist", draw, 18)
+    write_value("15", "%", draw, 26, large=True)
+    base.paste(img, (0, 0))
+
+
+def add_temperature(base: Image):
+    img = Image.new("I", (item_width, half_item_height))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
+
+    write_header("Temp", draw, 4)
+    write_value("22.2", "C", draw, 14)
     base.paste(img, (0, item_height + margin))
 
 
 def add_humidity(base: Image):
-    img = Image.new("I", (item_width, item_height))
+    img = Image.new("I", (item_width, half_item_height))
     draw = ImageDraw.Draw(img)
-    draw.rectangle((0, 0, W, item_height), fill=inky_display.BLACK)
+    draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
 
-    write_header("Hum.", draw)
+    write_header("Hum", draw, 4)
+    write_value("56.8", "%", draw, 14)
     base.paste(img, (item_width + 2, item_height + margin))
+
+
+def add_dew_point(base: Image):
+    img = Image.new("I", (item_width, half_item_height))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
+
+    write_header("Dew", draw, 4)
+    write_value("13.2", "C", draw, 14)
+    base.paste(img, (0, item_height + half_item_height + margin * 2))
+
+
+def add_pressure(base: Image):
+    img = Image.new("I", (item_width, half_item_height))
+    draw = ImageDraw.Draw(img)
+    draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
+
+    write_header("Press", draw, 4)
+    write_value("102", "kPa", draw, 14)
+    base.paste(img, (item_width + 2, item_height + half_item_height + margin * 2))
 
 
 def write_header(text: str, draw: ImageDraw, top_margin: int = 0):
@@ -121,11 +147,25 @@ def write_header(text: str, draw: ImageDraw, top_margin: int = 0):
     )
 
 
-def write_value(text: str, draw: ImageDraw, top_margin: int = 0):
-    w, h = value_font.getsize(text)
+def write_value(
+    text: str, unit: str, draw: ImageDraw, top_margin: int = 0, large: bool = False
+):
+
+    value_text = text if large else f"{text} {unit}"
+    value_font = body_large_font if large else body_small_font
+    w, h = value_font.getsize(value_text)
     draw.text(
-        ((item_width - w) / 2, top_margin + 10),
-        text.upper(),
+        ((item_width - w) / 2, top_margin),
+        value_text,
         font=value_font,
         fill=inky_display.WHITE,
     )
+
+    if large:
+        uw, uh = body_small_font.getsize(unit)
+        draw.text(
+            ((item_width - uw) / 2, top_margin + h + 5),
+            unit.upper(),
+            font=body_small_font,
+            fill=inky_display.WHITE,
+        )
