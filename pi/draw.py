@@ -102,8 +102,8 @@ def add_temperature(base: Image):
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
 
-    write_header("Temp", draw, 4)
-    write_value("22.2", "C", draw, 14)
+    write_header("Temp", draw, 8)
+    write_value("22.2", "C", draw, 18)
     base.paste(img, (0, item_height + margin))
 
 
@@ -112,8 +112,8 @@ def add_humidity(base: Image):
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
 
-    write_header("Hum", draw, 4)
-    write_value("56.8", "%", draw, 14)
+    write_header("Hum", draw, 8)
+    write_value("56.8", "%", draw, 18)
     base.paste(img, (item_width + 2, item_height + margin))
 
 
@@ -122,8 +122,8 @@ def add_dew_point(base: Image):
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
 
-    write_header("Dew", draw, 4)
-    write_value("13.2", "C", draw, 14)
+    write_header("Dew", draw, 8)
+    write_value("13.2", "C", draw, 18)
     base.paste(img, (0, item_height + half_item_height + margin * 2))
 
 
@@ -132,8 +132,8 @@ def add_pressure(base: Image):
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
 
-    write_header("Press", draw, 4)
-    write_value("102", "kPa", draw, 14)
+    write_header("Press", draw, 8)
+    write_value("102", "kPa", draw, 18)
     base.paste(img, (item_width + 2, item_height + half_item_height + margin * 2))
 
 
