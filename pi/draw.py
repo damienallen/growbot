@@ -62,7 +62,7 @@ def add_items(base: Image, sensor_data):
     Add dynamic sensor data
     """
     items = Image.new("I", (W, container_height))
-    add_clock(items, sensor_data["Time"])
+    add_clock(items)
     add_light(items)
     add_soil_moisture(items, sensor_data["ANALOG"]["Range"])
     add_temperature(items, sensor_data["BME680"]["Temperature"])
@@ -74,7 +74,7 @@ def add_items(base: Image, sensor_data):
     base.paste(items, (0, 0))
 
 
-def add_clock(base: Image, time: str):
+def add_clock(base: Image):
     """
     Add clock in upper-left corner
     """
