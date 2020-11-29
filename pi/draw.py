@@ -30,36 +30,51 @@ item_width = round((W - margin) / 2)
 
 half_item_height = round(item_height / 2) - margin
 
+# Dummy data
+dummy_data = {
+    "Time": "2020-11-29T01:09:58",
+    "ANALOG": {"Range": 100},
+    "BME680": {
+        "Temperature": 26.5,
+        "Humidity": 43.3,
+        "DewPoint": 13.0,
+        "Pressure": 1024.1,
+        "Gas": 477.15,
+    },
+    "PressureUnit": "hPa",
+    "TempUnit": "C",
+}
 
-def get_screen_image() -> Image:
+
+def get_screen_image(sensor_data=dummy_data) -> Image:
 
     # Add background template
     base_img = Image.open(base_path / "assets" / "growbot.png")
 
     # Add dymanic components
-    add_items(base_img)
+    add_items(base_img, sensor_data)
 
     return base_img
 
 
-def add_items(base: Image):
+def add_items(base: Image, sensor_data):
     """
     Add dynamic sensor data
     """
     items = Image.new("I", (W, container_height))
-    add_clock(items)
+    add_clock(items, sensor_data["Time"])
     add_light(items)
-    add_soil_moisture(items)
-    add_temperature(items)
-    add_humidity(items)
-    add_dew_point(items)
-    add_pressure(items)
+    add_soil_moisture(items, sensor_data["ANALOG"]["Range"])
+    add_temperature(items, sensor_data["BME680"]["Temperature"])
+    add_humidity(items, sensor_data["BME680"]["Humidity"])
+    add_dew_point(items, sensor_data["BME680"]["DewPoint"])
+    add_pressure(items, sensor_data["BME680"]["Pressure"])
 
     items = items.rotate(90, expand=True)
     base.paste(items, (0, 0))
 
 
-def add_clock(base: Image):
+def add_clock(base: Image, time: str):
     """
     Add clock in upper-left corner
     """
@@ -86,54 +101,54 @@ def add_light(base: Image):
     base.paste(img, (item_width + margin, half_item_height + margin))
 
 
-def add_soil_moisture(base: Image):
+def add_soil_moisture(base: Image, value: int):
     img = Image.new("I", (item_width, item_height))
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, W, item_height), fill=inky_display.RED)
 
     write_header("Soil", draw, 6)
     write_header("Moist", draw, 18)
-    write_value("15", "%", draw, 26, large=True)
+    write_value(100 - value, "%", draw, 26, large=True)
     base.paste(img, (0, 0))
 
 
-def add_temperature(base: Image):
+def add_temperature(base: Image, value: float):
     img = Image.new("I", (item_width, half_item_height))
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
 
     write_header("Temp", draw, 8)
-    write_value("22.2", "C", draw, 18)
+    write_value(value, "C", draw, 18)
     base.paste(img, (0, item_height + margin))
 
 
-def add_humidity(base: Image):
+def add_humidity(base: Image, value: float):
     img = Image.new("I", (item_width, half_item_height))
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
 
     write_header("Hum", draw, 8)
-    write_value("56.8", "%", draw, 18)
+    write_value(value, "%", draw, 18)
     base.paste(img, (item_width + 2, item_height + margin))
 
 
-def add_dew_point(base: Image):
+def add_dew_point(base: Image, value: float):
     img = Image.new("I", (item_width, half_item_height))
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
 
     write_header("Dew", draw, 8)
-    write_value("13.2", "C", draw, 18)
+    write_value(value, "C", draw, 18)
     base.paste(img, (0, item_height + half_item_height + margin * 2))
 
 
-def add_pressure(base: Image):
+def add_pressure(base: Image, value: float):
     img = Image.new("I", (item_width, half_item_height))
     draw = ImageDraw.Draw(img)
     draw.rectangle((0, 0, W, half_item_height), fill=inky_display.BLACK)
 
     write_header("Press", draw, 8)
-    write_value("102", "kPa", draw, 18)
+    write_value(round(value / 10), "kPa", draw, 18)
     base.paste(img, (item_width + 2, item_height + half_item_height + margin * 2))
 
 
@@ -148,10 +163,10 @@ def write_header(text: str, draw: ImageDraw, top_margin: int = 0):
 
 
 def write_value(
-    text: str, unit: str, draw: ImageDraw, top_margin: int = 0, large: bool = False
+    value, unit: str, draw: ImageDraw, top_margin: int = 0, large: bool = False
 ):
 
-    value_text = text if large else f"{text} {unit}"
+    value_text = str(value) if large else f"{value} {unit}"
     value_font = body_large_font if large else body_small_font
     w, h = value_font.getsize(value_text)
     draw.text(
