@@ -3,4 +3,8 @@ update:
 
 display:
 	rsync -azP . pi@192.168.178.37:/home/pi/growbot
-	ssh pi@192.168.178.37 python3 /home/pi/growbot/display.py
+	ssh pi@192.168.178.37 /usr/bin/python3 /home/pi/growbot/pi/display.py
+
+run:
+	rsync -azP . pi@192.168.178.37:/home/pi/growbot
+	ssh pi@192.168.178.37 /usr/bin/python3 /home/pi/growbot/pi/main.py
