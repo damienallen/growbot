@@ -1,0 +1,11 @@
+---
+version: "3.9"
+services:
+  mqtt_broker:
+    image: eclipse-mosquitto
+    restart: unless-stopped
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    ports:
+      - 1883:1883
+      - 9001:9001

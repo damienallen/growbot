@@ -2,9 +2,11 @@ import asyncio
 
 from asyncio_mqtt import Client
 
+from server import MQTT_BROKER
+
 
 async def main():
-    async with Client("localhost") as client:
+    async with Client(MQTT_BROKER) as client:
         async with client.messages() as messages:
             await client.subscribe("tele/tasmota_133D41/SENSOR")
             async for message in messages:
