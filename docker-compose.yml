@@ -21,7 +21,7 @@ services:
 
   hub:
     <<: *server_template
-    command: ["python", "-u", "-m", "server.hub.mqtt"]
+    command: ["python", "-m", "server.hub.mqtt"]
 
   mqtt_broker:
     image: eclipse-mosquitto
