@@ -1,0 +1,8 @@
+---
+version: "3.9"
+
+services:
+
+  server:
+    ports:
+      - "8888:8000"

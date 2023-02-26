@@ -2,19 +2,22 @@
 version: "3.9"
 services:
   server:
-    build:
-      cache_from:
-        - ghcr.io/damienallen/growbot/server:main
-      target: development
-      context: ./server
-    restart: unless-stopped
-    env_file: ./config/.env
-    volumes:
-      - ./server/:/code/server
-    networks:
-      - localnet
-    ports:
-      - "8888:8000"
+    <<: &server_template
+      build:
+        cache_from:
+          - ghcr.io/damienallen/growbot/server:main
+        target: development
+        context: ./server
+      restart: unless-stopped
+      env_file: ./config/.env
+      volumes:
+        - ./server/:/code/server
+      networks:
+        - localnet
+
+  hub:
+    <<: *server_template
+    command: ["python", "-u", "-m", "server.hub.mqtt"]
 
   mqtt_broker:
     image: eclipse-mosquitto
