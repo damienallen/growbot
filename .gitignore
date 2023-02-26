@@ -1,5 +1,10 @@
-output/
+scripts/scratch/
+data/
 .vscode/
-__pycache__/
 
+# Python
+__pycache__/
 *.pyc
+
+# Secrets
+.env

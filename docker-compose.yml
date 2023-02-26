@@ -1,0 +1,38 @@
+---
+version: "3.9"
+services:
+  server:
+    <<: &server_template
+      build:
+        cache_from:
+          - ghcr.io/damienallen/growbot/server:main
+        target: dev
+        context: ./server
+      restart: unless-stopped
+      env_file: ./config/.env
+      command: ["uvicorn", "server.app.main:app", "--host", "0.0.0.0"]
+      depends_on:
+      - mqtt_broker
+      volumes:
+        - ./server/:/code/server
+        - ./data/docker:/data
+      networks:
+        - localnet
+
+  hub:
+    <<: *server_template
+    command: ["python", "-m", "server.hub.mqtt"]
+
+  mqtt_broker:
+    image: eclipse-mosquitto
+    restart: unless-stopped
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      - localnet
+    ports:
+      - 1883:1883
+      - 9001:9001
+
+networks:
+  localnet:

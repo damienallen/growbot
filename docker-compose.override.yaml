@@ -1,0 +1,9 @@
+---
+version: "3.9"
+
+services:
+
+  server:
+    command: ["uvicorn", "server.app.main:app", "--reload", "--host", "0.0.0.0"]
+    ports:
+      - "8888:8000"
