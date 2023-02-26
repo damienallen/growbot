@@ -15,7 +15,7 @@ services:
       - mqtt_broker
       volumes:
         - ./server/:/code/server
-        - ./data/:/data
+        - ./data/docker:/data
       networks:
         - localnet
 

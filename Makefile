@@ -1,6 +1,9 @@
 up:
 	docker compose build; docker compose up
 
+mqtt:
+	python -m server.hub.mqtt
+
 update:
 	rsync -azP . pi@pi-01:/home/pi/growbot
 
