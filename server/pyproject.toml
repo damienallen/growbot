@@ -8,6 +8,7 @@ authors = ["Damien Allen <dev@dallen.co>"]
 python = "^3.11"
 asyncio-mqtt = "^0.16.1"
 fastapi = "^0.92.0"
+uvicorn = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 black = "^23.1"

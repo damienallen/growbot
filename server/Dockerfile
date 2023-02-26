@@ -1,4 +1,4 @@
-FROM python:3.11 as development
+FROM python:3.11 as dev
 
 
 ENV \
@@ -20,7 +20,7 @@ ENV \
 RUN apt-get update && apt-get upgrade -y \
   && apt-get install --no-install-recommends -y bash
 
-# Install Poetry
+# Install Poetry & Python dependencies
 RUN curl -sSL 'https://install.python-poetry.org' | python -
 
 WORKDIR /code
@@ -28,10 +28,6 @@ COPY ./pyproject.toml /poetry.lock* /code/
 RUN touch __init__.py \
   && poetry install --no-root --no-dev
 
-# Set start command
-CMD ["uvicorn", "server.app.main:app", "--reload", "--host", "0.0.0.0"]
-
 # Copy files in production
-FROM development as production
+FROM dev as prod
 COPY . /code/server
-CMD ["uvicorn", "server.app.main:app", "--host", "0.0.0.0"]

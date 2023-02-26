@@ -6,12 +6,16 @@ services:
       build:
         cache_from:
           - ghcr.io/damienallen/growbot/server:main
-        target: development
+        target: dev
         context: ./server
       restart: unless-stopped
       env_file: ./config/.env
+      command: ["uvicorn", "server.app.main:app", "--host", "0.0.0.0"]
+      depends_on:
+      - mqtt_broker
       volumes:
         - ./server/:/code/server
+        - ./data/:/data
       networks:
         - localnet
 
