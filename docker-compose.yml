@@ -1,11 +1,31 @@
 ---
 version: "3.9"
 services:
+  server:
+    build:
+      cache_from:
+        - ghcr.io/damienallen/growbot/server:main
+      target: development
+      context: ./server
+    restart: unless-stopped
+    env_file: ./config/.env
+    volumes:
+      - ./server/:/code/server
+    networks:
+      - localnet
+    ports:
+      - "8888:8000"
+
   mqtt_broker:
     image: eclipse-mosquitto
     restart: unless-stopped
     volumes:
       - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      - localnet
     ports:
       - 1883:1883
       - 9001:9001
+
+networks:
+  localnet:

@@ -1,3 +1,6 @@
+up:
+	docker compose build; docker compose up
+
 update:
 	rsync -azP . pi@pi-01:/home/pi/growbot
 

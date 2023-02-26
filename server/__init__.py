@@ -1,11 +1,9 @@
+import os
 from pathlib import Path
 
-from decouple import Config, RepositoryEnv
-
-ROOT = Path(__file__).parent.parent
-ENV_PATH = ROOT / "config" / ".env"
+ROOT = Path(__file__).parent
 
 
-# Load configuration from .env
-config = Config(RepositoryEnv(str(ENV_PATH)))
-MQTT_BROKER = config("MQTT_BROKER")
+# Load configuration from env
+MQTT_BROKER = os.environ.get("MQTT_BROKER", "localhost")
+MQTT_TOPIC = os.environ.get("MQTT_TOPIC")

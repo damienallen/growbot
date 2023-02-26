@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "growbot"
+name = "growbot-server"
 version = "2.0"
 description = "Bucket-based, code-powered, 3d-printed horticulture"
 authors = ["Damien Allen <dev@dallen.co>"]
@@ -7,6 +7,8 @@ authors = ["Damien Allen <dev@dallen.co>"]
 [tool.poetry.dependencies]
 python = "^3.11"
 asyncio-mqtt = "^0.16.1"
+fastapi = "^0.92.0"
+fastapi-mqtt = "^1.0.7"
 python-decouple = "^3.7"
 
 [tool.poetry.dev-dependencies]
