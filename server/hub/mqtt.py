@@ -31,7 +31,7 @@ class SensorPayload:
 
 
 @dataclass
-class SensorTimeseries:
+class SensorReport:
     timestamp: pd.Timestamp
     temperature: float
     humidity: float
@@ -58,7 +58,7 @@ async def write(payload: SensorPayload):
     """
     Structure sensor payload in pandas dataframe and serialize as compressed pickle
     """
-    ts = SensorTimeseries(
+    report = SensorReport(
         timestamp=pd.Timestamp(datetime.strptime(payload.Time, "%Y-%m-%dT%H:%M:%S")),
         temperature=payload.BME680.Temperature,
         humidity=payload.BME680.Humidity,
@@ -67,7 +67,7 @@ async def write(payload: SensorPayload):
         gas_resistance=payload.BME680.Gas,
     )
 
-    df = pd.DataFrame([asdict(ts)])
+    df = pd.DataFrame([asdict(report)])
     df.set_index("timestamp", inplace=True)
 
     record_path = await get_record_path()
@@ -75,7 +75,7 @@ async def write(payload: SensorPayload):
         existing_df = pd.read_pickle(record_path)
         df = pd.concat([existing_df, df]) if record_path.exists() else df
 
-    print(df)
+    print(f"{report.timestamp} -> {payload.BME680} ({len(df)} records)")
     with lzma.open(str(record_path), "w") as f:
         pickle.dump(df, f)
 
