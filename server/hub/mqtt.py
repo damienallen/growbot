@@ -87,8 +87,8 @@ async def get_record_path() -> Path:
     now = datetime.now()
     dir = DATA_DIR / str(now.year) / str(now.month)
     dir.mkdir(parents=True, exist_ok=True)
-
-    return dir / f"{now.day}.xz"
+    record_path = dir / f"{now.day}.xz"
+    return record_path
 
 
 if __name__ == "__main__":

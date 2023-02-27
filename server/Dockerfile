@@ -1,6 +1,8 @@
 FROM python:3.11 as dev
 
-ENV PYTHONUNBUFFERED=1 \
+ENV DATA_DIR=/data \
+  # python
+  PYTHONUNBUFFERED=1 \
   PYTHONFAULTHANDLER=1 \
   PYTHONHASHSEED=random \
   PYTHONDONTWRITEBYTECODE=1 \
@@ -30,4 +32,4 @@ RUN touch __init__.py \
 
 # Copy files in production
 FROM dev as prod
-COPY . /code/server
+COPY . server/
