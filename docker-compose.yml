@@ -2,7 +2,7 @@
 version: "3.9"
 services:
   server:
-    <<: &server_template
+    <<: &server_base
       image: ghcr.io/damienallen/growbot/server:main
       build:
         cache_from:
@@ -18,7 +18,7 @@ services:
         - localnet
 
   hub:
-    <<: *server_template
+    <<: *server_base
     command: ["python", "-m", "server.hub.mqtt"]
 
   mqtt_broker:

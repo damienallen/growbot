@@ -75,7 +75,7 @@ async def write(payload: SensorPayload):
         existing_df = pd.read_pickle(record_path)
         df = pd.concat([existing_df, df]) if record_path.exists() else df
 
-    print(f"{report.timestamp} -> {payload.BME680} ({len(df)} records)")
+    print(f"{report.timestamp} -> {payload.BME680} [{len(df)} records]")
     with lzma.open(str(record_path), "w") as f:
         pickle.dump(df, f)
 
