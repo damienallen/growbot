@@ -3,6 +3,7 @@ version: "3.9"
 services:
   server:
     <<: &server_template
+      image: ghcr.io/damienallen/growbot/server:main
       build:
         cache_from:
           - ghcr.io/damienallen/growbot/server:main
@@ -13,9 +14,6 @@ services:
       command: ["uvicorn", "server.app.main:app", "--host", "0.0.0.0"]
       depends_on:
       - mqtt_broker
-      volumes:
-        - ./server/:/code/server
-        - ./data/docker:/data
       networks:
         - localnet
 
