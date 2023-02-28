@@ -12,7 +12,7 @@ ENV DATA_DIR=/data \
   PIP_DISABLE_PIP_VERSION_CHECK=1 \
   PIP_DEFAULT_TIMEOUT=100 \
   # poetry
-  POETRY_VERSION=1.3.2 \
+  POETRY_VERSION=1.4.0 \
   POETRY_NO_INTERACTION=1 \
   POETRY_VIRTUALENVS_CREATE=false \
   POETRY_CACHE_DIR=/var/cache/pypoetry \
@@ -20,7 +20,7 @@ ENV DATA_DIR=/data \
 
 # Install system dependencies
 RUN apt-get update && apt-get upgrade -y \
-  && apt-get install --no-install-recommends -y bash nano
+  && apt-get install --no-install-recommends -y bash nano cron
 
 # Install Poetry & Python dependencies
 RUN curl -sSL 'https://install.python-poetry.org' | python -
@@ -30,10 +30,10 @@ COPY ./pyproject.toml /poetry.lock* /code/
 RUN touch __init__.py \
   && poetry install --no-root --no-dev
 
-# Copy cronjobs
+# Copy & install cronjobs
 COPY ./cron /etc/cron.d/cronjob
 RUN chmod 0644 /etc/cron.d/cronjob && crontab /etc/cron.d/cronjob
 
-# Copy files in production
+# Copy modules in production
 FROM dev as prod
 COPY . server/

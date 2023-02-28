@@ -3,12 +3,12 @@ version: "3.9"
 services:
   server:
     <<: &server_base
-      image: ghcr.io/damienallen/growbot/server:main
+      image: ghcr.io/damienallen/growbot-server:main
       build:
+        context: ./server
         cache_from:
           - ghcr.io/damienallen/growbot/server:main
         target: dev
-        context: ./server
       restart: unless-stopped
       env_file: ./config/.env
       command: ["uvicorn", "server.app.main:app", "--host", "0.0.0.0"]
