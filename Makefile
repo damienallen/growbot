@@ -10,8 +10,8 @@ build-pi:
 bash-pi:
 	docker compose -f docker-compose.yml -f docker-compose.pi.yml run --rm server bash
 
-mqtt:
-	python -m server.hub.mqtt
+sync-camera:
+	rsync -azP pi@pi-01:/home/pi/image.jpg ~/data/image.jpg
 
 update:
 	rsync -azP . pi@pi-01:/home/pi/growbot
@@ -23,3 +23,6 @@ display:
 run:
 	rsync -azP . pi@pi-01:/home/pi/growbot
 	ssh pi@pi-01 /usr/bin/python3 /home/pi/growbot/pi_display/main.py
+
+mqtt:
+	python -m server.hub.mqtt
