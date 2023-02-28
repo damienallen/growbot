@@ -14,9 +14,16 @@ def main():
     print(f"Fetching camera capture from {SIDEKICK_HOST}\n")
 
     temp_path = CAPTURE_DIR / "capture.jpg"
-    proc = subprocess.run(
-        ["rsync", "-azP", "pi@pi-01:/home/pi/image.jpg", str(temp_path)]
-    )
+    cmd = [
+        "rsync",
+        "-azP",
+        "-e",
+        "ssh -i /ssh_keys/sidekick_ed25519",
+        "pi@pi-01:/home/pi/image.jpg",
+        str(temp_path),
+    ]
+
+    proc = subprocess.run(cmd)
 
     if proc.returncode > 0:
         raise Exception("rsync operation failed!")
@@ -38,7 +45,7 @@ def main():
     if make_archive:
         capture_path = get_capture_path()
         copy2(temp_path, capture_path)
-        print(f" + {capture_path.name}")
+        print(f" + {capture_path}")
 
 
 def get_last_capture() -> Path | None:

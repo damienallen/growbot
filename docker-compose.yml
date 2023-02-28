@@ -12,6 +12,9 @@ services:
       restart: unless-stopped
       env_file: ./config/.env
       command: ["uvicorn", "server.app.main:app", "--host", "0.0.0.0"]
+      volumes:
+      - ./config/ssh:/ssh_keys/
+      - ./config/ssh/known_hosts:/root/.ssh/known_hosts
       depends_on:
       - mqtt_broker
       networks:
