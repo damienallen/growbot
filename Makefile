@@ -11,7 +11,7 @@ bash-pi:
 	docker compose -f docker-compose.yml -f docker-compose.pi.yml run --rm server bash
 
 sync-camera:
-	rsync -azP pi@pi-01:/home/pi/image.jpg ~/data/image.jpg
+	rsync -azP pi@pi-01:/home/pi/image.jpg ~/growbot/data/capture.jpg
 
 update:
 	rsync -azP . pi@pi-01:/home/pi/growbot
