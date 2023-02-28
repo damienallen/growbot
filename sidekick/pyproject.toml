@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "growbot-display"
+name = "growbot-sidekick"
 version = "1.0"
 description = "Minimal Pi Zero (W) based eInk UI"
 authors = ["Damien Allen <dev@dallen.co>"]
@@ -10,7 +10,6 @@ Pillow = "^8.0.1"
 inky = "^1.1.1"
 asyncio-mqtt = "^0.8.0"
 gpiozero = "^1.6.2"
-
 
 [build-system]
 requires = ["poetry>=1.1"]
