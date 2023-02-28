@@ -1,6 +1,7 @@
 FROM python:3.11 as dev
 
 ENV DATA_DIR=/data \
+  CAPTURE_DIR=/captures \
   # python
   PYTHONUNBUFFERED=1 \
   PYTHONFAULTHANDLER=1 \
@@ -29,6 +30,9 @@ COPY ./pyproject.toml /poetry.lock* /code/
 RUN touch __init__.py \
   && poetry install --no-root --no-dev
 
+# Copy cronjobs
+COPY ./cron /etc/cron.d/cronjob
+RUN chmod 0644 /etc/cron.d/cronjob && crontab /etc/cron.d/cronjob
 
 # Copy files in production
 FROM dev as prod

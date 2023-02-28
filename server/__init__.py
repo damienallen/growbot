@@ -6,9 +6,13 @@ ROOT = Path(__file__).parent.parent
 # Timeseries data
 if os.environ.get("DATA_DIR"):
     DATA_DIR = Path(os.environ["DATA_DIR"])
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    CAPTURE_DIR = Path(os.environ["CAPTURE_DIR"])
 else:
     DATA_DIR = ROOT / "data" / "local"
+    CAPTURE_DIR = ROOT / "data" / "captures"
+
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+CAPTURE_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load configuration from env
 MQTT_BROKER = os.environ.get("MQTT_BROKER", "localhost")

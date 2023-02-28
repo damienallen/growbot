@@ -26,3 +26,6 @@ run:
 
 mqtt:
 	python -m server.hub.mqtt
+
+capture:
+	python -m server.hub.capture
