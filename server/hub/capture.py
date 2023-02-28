@@ -1,4 +1,5 @@
 import hashlib
+import os
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -68,4 +69,5 @@ def get_capture_path() -> Path:
 
 
 if __name__ == "__main__":
-    main()
+    if "FASTAPI" not in os.environ:
+        main()

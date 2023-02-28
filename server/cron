@@ -1,2 +1,2 @@
 # m h dom mon dow   command
-* * * * *           cd ~/growbot && python -m server.hub.cature
+* * * * *           cd ~/growbot && python -m server.hub.capture

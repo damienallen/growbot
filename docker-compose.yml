@@ -16,6 +16,8 @@ services:
       - mqtt_broker
       networks:
         - localnet
+    environment:
+      - FASTAPI=true
 
   hub:
     <<: *server_base
