@@ -14,15 +14,15 @@ sync-camera:
 	rsync -azP pi@pi-01:/home/pi/image.jpg ~/growbot/data/capture.jpg
 
 update:
-	rsync -azP . pi@pi-01:/home/pi/growbot
+	rsync -azP ./sidekick pi@pi-01:/home/pi
 
 display:
-	rsync -azP . pi@pi-01:/home/pi/growbot
-	ssh pi@pi-01 /usr/bin/python3 /home/pi/growbot/sidekick/display.py
+	rsync -azP ./sidekick pi@pi-01:/home/pi
+	ssh pi@pi-01 /usr/bin/python3 /home/pi/sidekick/display.py
 
 run:
-	rsync -azP . pi@pi-01:/home/pi/growbot
-	ssh pi@pi-01 /usr/bin/python3 /home/pi/growbot/sidekick/main.py
+	rsync -azP ./sidekick pi@pi-01:/home/pi
+	ssh pi@pi-01 /usr/bin/python3 /home/pi/sidekick/main.py
 
 mqtt:
 	python -m server.hub.mqtt

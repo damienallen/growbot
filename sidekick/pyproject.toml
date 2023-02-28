@@ -5,11 +5,10 @@ description = "Minimal Pi Zero (W) based eInk UI"
 authors = ["Damien Allen <dev@dallen.co>"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-Pillow = "^8.0.1"
+python = "^3.11"
+Pillow = "^9.4"
 inky = "^1.1.1"
 asyncio-mqtt = "^0.8.0"
-gpiozero = "^1.6.2"
 
 [build-system]
 requires = ["poetry>=1.1"]
