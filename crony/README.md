@@ -1,6 +1,7 @@
 # growbot-crony 📡
 
-Use a Raspberry Pi Zero to:
+Using a Raspberry Pi Zero to:
 
-- Update a Pimoroni Inky pHAT (eInk) display
-- Capture from a NoIR Pi Camera
+- Update a Pimoroni Inky pHAT (eInk) display with sensor data
+- Capture stills from a NoIR Pi Camera using cron
+- Interface with Pi4 server
