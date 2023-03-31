@@ -11,14 +11,22 @@ Bucket-based, code-powered, 3d-printed horticulture
 
 ### Server Setup
 
+#### Hardware
+
+A Raspberry Pi 4 is used as a central server on the local network.
+
 #### Docker
 
 1. Copy _config/template.env_ to _config/.env_ and configure
 2. Pull containers with `docker compose pull`
-3. Run with `docker compose up` (`-d`)
+3. Run with `docker compose up` (`-d`) or `make up`
 
 ### Crony Deployment
 
-Update crony code via rsync with `make update`
+This project leverages a Raspberry Pi Zero W to faciliate image captures and
 
-Refresh the display with `make display`
+#### Command Referece
+
+- `make update` to update Python scripts on the crony Pi via rsync
+- `make display` to update the eInk display
+-

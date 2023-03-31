@@ -4,4 +4,4 @@ Using a Raspberry Pi Zero to:
 
 - Update a Pimoroni Inky pHAT (eInk) display with sensor data
 - Capture stills from a NoIR Pi Camera using cron
-- Interface with Pi4 server
+- Interface with a central Raspberry Pi 4 server
