@@ -7,18 +7,18 @@ from shutil import copy2
 
 from server import CAPTURE_DIR
 
-SIDEKICK_HOST = "pi-01"
+CRONY_HOST = "pi-01"
 
 
 def main():
-    print(f"Fetching camera capture from {SIDEKICK_HOST}\n")
+    print(f"Fetching camera capture from {CRONY_HOST}\n")
 
     temp_path = CAPTURE_DIR / "capture.jpg"
     cmd = [
         "rsync",
         "-azP",
         "-e",
-        "ssh -i /ssh_keys/sidekick_ed25519",
+        "ssh -i /ssh_keys/crony_ed25519",
         "pi@pi-01:/home/pi/image.jpg",
         str(temp_path),
     ]

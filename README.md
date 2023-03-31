@@ -17,8 +17,8 @@ Bucket-based, code-powered, 3d-printed horticulture
 2. Pull containers with `docker compose pull`
 3. Run with `docker compose up` (`-d`)
 
-### Sidekick Deployment
+### Crony Deployment
 
-Update sidekick code via rsync with `make update`
+Update crony code via rsync with `make update`
 
 Refresh the display with `make display`

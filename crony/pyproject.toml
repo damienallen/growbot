@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "growbot-sidekick"
+name = "growbot-crony"
 version = "1.0"
 description = "Minimal Pi Zero (W) based eInk UI"
 authors = ["Damien Allen <dev@dallen.co>"]

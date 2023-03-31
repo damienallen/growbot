@@ -1,3 +1,4 @@
+# docker
 up:
 	docker compose build; docker compose up
 
@@ -10,20 +11,26 @@ build-pi:
 bash-pi:
 	docker compose -f docker-compose.yml -f docker-compose.pi.yml run --rm server bash
 
-sync-camera:
-	rsync -azP pi@pi-01:/home/pi/image.jpg ~/growbot/data/capture.jpg
 
-update:
-	rsync -azP ./sidekick pi@pi-01:/home/pi
+# pi4-server
+pull-camera:
+	rsync -azP pi@pi4:/home/pi/captures ~/growbot/data
 
-display:
-	rsync -azP ./sidekick pi@pi-01:/home/pi
-	ssh pi@pi-01 /usr/bin/python3 /home/pi/sidekick/display.py
 
-run:
-	rsync -azP ./sidekick pi@pi-01:/home/pi
-	ssh pi@pi-01 /usr/bin/python3 /home/pi/sidekick/main.py
+# crony
+crony-update:
+	rsync -azP ./crony pi@pi-01:/home/pi
 
+crony-display:
+	rsync -azP ./crony pi@pi-01:/home/pi
+	ssh pi@pi-01 /usr/bin/python3 /home/pi/crony/display.py
+
+crony-run:
+	rsync -azP ./crony pi@pi-01:/home/pi
+	ssh pi@pi-01 /usr/bin/python3 /home/pi/crony/main.py
+
+
+# communication
 mqtt:
 	python -m server.hub.mqtt
 

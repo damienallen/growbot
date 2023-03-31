@@ -1,4 +1,4 @@
-# growbot-sidekick 📡
+# growbot-crony 📡
 
 Use a Raspberry Pi Zero to:
 
