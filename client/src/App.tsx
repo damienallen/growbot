@@ -1,8 +1,17 @@
 
-export default function App() {
+
+import { Provider } from 'mobx-react'
+import { MantineProvider } from '@mantine/core'
+import { Store } from './stores'
+
+export const App = () => {
+  const store = new Store()
+
   return (
-    <div>
-      Hello world
-    </div>
+    <Provider store={store} settings={store.settings}>
+      <MantineProvider withGlobalStyles withNormalizeCSS theme={store.ui.theme}>
+        Hello growbot
+      </MantineProvider>
+    </Provider>
   )
 }

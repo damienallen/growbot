@@ -20,9 +20,12 @@
     "@mantine/spotlight": "^6.0.5",
     "dayjs": "^1.11.7",
     "jss": "^10.10.0",
+    "mobx": "^6.9.0",
+    "mobx-react": "^7.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "suncalc": "^1.9.0"
+    "suncalc": "^1.9.0",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
