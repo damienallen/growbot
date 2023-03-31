@@ -4,10 +4,14 @@ services:
 
   server:
     <<: &server_pi
+      image: ghcr.io/damienallen/growbot-server:pi
       build:
         target: dev
+        cache_from:
+          - ghcr.io/damienallen/growbot-server:pi
       volumes:
-        - /home/pi/data:/data
+        - ./server/:/code/server
+        - ./data:/data
     ports:
       - "4242:8000"
 
