@@ -18,8 +18,6 @@ def main():
     cmd = [
         "rsync",
         "-azP",
-        "-e",
-        "ssh -i /ssh_keys/crony_ed25519",
         "pi@pi-01:/home/pi/image.jpg",
         str(temp_path),
     ]
