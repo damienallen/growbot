@@ -1,6 +1,9 @@
 # growbot 🌱
 
-Bucket-based, code-powered, 3d-printed horticulture
+Bucket-based, Python-powered, 3D-printed horticulture
+
+Project status: _Early Development_
+
 
 ### Requirements
 
