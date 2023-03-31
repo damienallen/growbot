@@ -1,14 +1,23 @@
 # docker
 up:
-	docker compose build; docker compose up
+	docker compose build server; docker compose up
 
-pi:
+build:
+	docker compose build server
+
+push:
+	docker compose push server
+
+pull:
+	docker compose pull
+
+pi-up:
 	docker compose -f docker-compose.yml -f docker-compose.pi.yml up
 
-build-pi:
+pi-build:
 	docker compose -f docker-compose.yml -f docker-compose.pi.yml build
 
-bash-pi:
+pi-bash:
 	docker compose -f docker-compose.yml -f docker-compose.pi.yml run --rm server bash
 
 

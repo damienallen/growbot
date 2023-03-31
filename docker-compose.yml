@@ -7,7 +7,7 @@ services:
       build:
         context: ./server
         cache_from:
-          - ghcr.io/damienallen/growbot/server:main
+          - ghcr.io/damienallen/growbot-server:main
         target: dev
       restart: unless-stopped
       env_file: ./config/.env

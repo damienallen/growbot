@@ -18,7 +18,7 @@ A Raspberry Pi 4 is used as a central server on the local network.
 #### Docker
 
 1. Copy _config/template.env_ to _config/.env_ and configure
-2. Pull containers with `docker compose pull`
+2. Pull containers with `docker compose pull` or `make pull`
 3. Run with `docker compose up` (`-d`) or `make up`
 
 ### Crony Deployment
