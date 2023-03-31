@@ -1,7 +1,7 @@
 FROM python:3.11 as dev
 
 ENV DATA_DIR=/data \
-  CAPTURE_DIR=/captures \
+  CAPTURE_DIR=/data/captures \
   # python
   PYTHONUNBUFFERED=1 \
   PYTHONFAULTHANDLER=1 \
