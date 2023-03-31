@@ -14,9 +14,6 @@ pull:
 pi-up:
 	docker compose -f docker-compose.yml -f docker-compose.pi.yml up
 
-pi-build:
-	docker compose -f docker-compose.yml -f docker-compose.pi.yml build
-
 pi-bash:
 	docker compose -f docker-compose.yml -f docker-compose.pi.yml run --rm server bash
 

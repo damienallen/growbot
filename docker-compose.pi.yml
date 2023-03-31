@@ -5,7 +5,7 @@ services:
   server:
     <<: &server_pi
       build:
-        target: prod
+        target: dev
       volumes:
         - /home/pi/data:/data
     ports:
