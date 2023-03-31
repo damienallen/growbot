@@ -4,7 +4,6 @@ Bucket-based, Python-powered, 3D-printed horticulture
 
 Project status: _Early Development_
 
-
 ### Requirements
 
 - Python >=3.11
@@ -32,4 +31,3 @@ This project leverages a Raspberry Pi Zero W to faciliate image captures and
 
 - `make update` to update Python scripts on the crony Pi via rsync
 - `make display` to update the eInk display
--
