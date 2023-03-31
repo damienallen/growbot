@@ -11,7 +11,8 @@ CRONY_HOST = "pi-01"
 
 
 def main():
-    print(f"Fetching camera capture from {CRONY_HOST}\n")
+    timestamp = datetime.now().isoformat()
+    print(f"[{timestamp}] Fetching camera capture from {CRONY_HOST}\n")
 
     temp_path = CAPTURE_DIR / "capture.jpg"
     cmd = [
@@ -26,7 +27,9 @@ def main():
     proc = subprocess.run(cmd)
 
     if proc.returncode > 0:
-        raise Exception("rsync operation failed!")
+        message = "rsync operation failed!"
+        print(message)
+        raise Exception(message)
 
     last_capture = get_last_capture()
     make_archive = True
@@ -46,6 +49,8 @@ def main():
         capture_path = get_capture_path()
         copy2(temp_path, capture_path)
         print(f" + {capture_path}")
+    else:
+        print("Previous capture unchanged")
 
 
 def get_last_capture() -> Path | None:
