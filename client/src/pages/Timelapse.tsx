@@ -1,17 +1,19 @@
-import { createStyles } from '@mantine/core'
+import { Container, createStyles } from '@mantine/core'
 
 
 const useStyles = createStyles((theme) => ({
     container: {
-        display: 'flex',
+        flex: 1,
     },
 }))
 
 export const Timelapse = () => {
     const { classes } = useStyles()
     return (
-        <div className={classes.container}>
-            Timelapse
-        </div>
+        <Container>
+            <div className={classes.container}>
+                <h1>Timelapse</h1>
+            </div>
+        </Container>
     )
 }

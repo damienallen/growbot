@@ -19,7 +19,6 @@
     "@mantine/spotlight": "^6.0.5",
     "@tabler/icons-react": "^2.13.0",
     "dayjs": "^1.11.7",
-    "jss": "^10.10.0",
     "localforage": "^1.10.0",
     "mobx": "^6.9.0",
     "mobx-react": "^7.6.0",

@@ -74,12 +74,15 @@ export const Nav = () => {
     const [active, setActive] = useState('Overview')
 
     const links = data.map((item) => (
-        <div onClick={() => setActive(item.label)} key={item.label}>
-            <Link to={item.link} className={cx(classes.link, { [classes.linkActive]: item.label === active })}>
-                <item.icon className={classes.linkIcon} stroke={1.5} />
-                <span>{item.label}</span>
-            </Link>
-        </div>
+        <Link
+            to={item.link}
+            className={cx(classes.link, { [classes.linkActive]: item.label === active })}
+            onClick={() => setActive(item.label)}
+            key={item.label}
+        >
+            <item.icon className={classes.linkIcon} stroke={1.5} />
+            <span>{item.label}</span>
+        </Link>
     ))
 
     return (
