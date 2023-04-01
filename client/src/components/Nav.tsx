@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core'
 import {
-    IconBellRinging,
-    IconFingerprint,
+    IconLayoutBoardSplit,
+    IconCamera,
     IconSettings,
-    IconReceipt2,
+    IconChartLine,
 } from '@tabler/icons-react'
 
 import { HeaderIcon } from './HeaderIcon'
@@ -62,9 +62,9 @@ const useStyles = createStyles((theme) => ({
 }))
 
 const data = [
-    { link: '', label: 'Overview', icon: IconBellRinging },
-    { link: '', label: 'Timeseries', icon: IconReceipt2 },
-    { link: '', label: 'Timelapse', icon: IconFingerprint },
+    { link: '', label: 'Overview', icon: IconLayoutBoardSplit },
+    { link: '', label: 'Timeseries', icon: IconChartLine },
+    { link: '', label: 'Timelapse', icon: IconCamera },
     { link: '', label: 'Settings', icon: IconSettings },
 ]
 
