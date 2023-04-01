@@ -1,17 +1,15 @@
 
 
-import { Provider } from 'mobx-react'
-import { MantineProvider } from '@mantine/core'
-import { Store } from './stores'
+import packageJson from '../package.json'
+import { Layout } from './Layout'
+import { StoreProvider } from './stores'
+
+export const appVersion = packageJson.version
 
 export const App = () => {
-  const store = new Store()
-
   return (
-    <Provider store={store} settings={store.settings}>
-      <MantineProvider withGlobalStyles withNormalizeCSS theme={store.ui.theme}>
-        Hello growbot
-      </MantineProvider>
-    </Provider>
+    <StoreProvider>
+      <Layout />
+    </StoreProvider>
   )
 }

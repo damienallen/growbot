@@ -1,5 +1,7 @@
+import React from 'react'
 import { makeAutoObservable } from 'mobx'
 import Cookies from 'universal-cookie'
+import { ColorScheme } from '@mantine/core'
 
 
 export class Store {
@@ -16,21 +18,26 @@ export class Store {
 
 export class UIStore {
 
-    theme: any = { colorScheme: 'dark' }
+    public colorScheme: ColorScheme = 'dark'
 
     constructor(public root: Store) {
-        makeAutoObservable(this)
+        makeAutoObservable(this, {}, { autoBind: true })
     }
 
-    setHost(value: any) {
-        this.theme = value
+    toggleColorScheme() {
+        this.colorScheme = this.colorScheme === 'dark' ? 'light' : 'dark'
+        console.log(this.colorScheme)
+    }
+
+    get theme() {
+        return { colorScheme: this.colorScheme }
     }
 
 }
 
 export class ServerStore {
 
-    host: string = ''
+    host: string = 'localhost'
 
     constructor(public root: Store) {
         makeAutoObservable(this)
@@ -41,3 +48,15 @@ export class ServerStore {
     }
 
 }
+
+
+// Store helpers
+export const store = new Store()
+const StoreContext = React.createContext(store)
+
+export const StoreProvider = ({ children }: { children: any }) => (
+    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
+)
+
+// Hook to use store in functional components
+export const useStores = () => React.useContext(StoreContext)
