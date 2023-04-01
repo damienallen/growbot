@@ -14,7 +14,8 @@ import { ThemeToggle } from './ThemeToggle'
 
 const useStyles = createStyles((theme) => ({
     navbar: {
-        flex: 0
+        flex: 0,
+        height: '100%'
     },
     header: {
         paddingBottom: theme.spacing.md,

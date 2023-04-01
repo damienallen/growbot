@@ -11,6 +11,7 @@ import { useStores } from './stores'
 const useStyles = createStyles(() => ({
   container: {
     display: 'flex',
+    height: '100vh'
   },
 }))
 
