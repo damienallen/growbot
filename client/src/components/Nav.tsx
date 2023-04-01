@@ -13,17 +13,18 @@ import { appVersion } from '../App'
 import { ThemeToggle } from './ThemeToggle'
 
 const useStyles = createStyles((theme) => ({
+    navbar: {
+        flex: 0
+    },
     header: {
         paddingBottom: theme.spacing.md,
         marginBottom: `calc(${theme.spacing.md} * 1.5)`,
         borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]}`,
     },
-
     footer: {
         marginTop: theme.spacing.md,
         textAlign: 'center'
     },
-
     link: {
         ...theme.fn.focusStyles(),
         display: 'flex',
@@ -44,13 +45,11 @@ const useStyles = createStyles((theme) => ({
             },
         },
     },
-
     linkIcon: {
         ref: getStylesRef('icon'),
         color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
         marginRight: theme.spacing.sm,
     },
-
     linkActive: {
         '&, &:hover': {
             backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
@@ -86,7 +85,7 @@ export const Nav = () => {
     ))
 
     return (
-        <Navbar height={700} width={{ sm: 300 }} p="md">
+        <Navbar className={classes.navbar} height={700} width={{ sm: 300 }} p="md">
             <Navbar.Section grow>
                 <Group className={classes.header} position="apart">
                     <HeaderIcon />

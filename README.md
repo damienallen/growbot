@@ -25,7 +25,7 @@ A Raspberry Pi 4 is used as a central server on the local network.
 
 ### Crony Deployment
 
-This project leverages a Raspberry Pi Zero W to faciliate image captures and
+This project leverages a Raspberry Pi Zero W to faciliate image captures.
 
 #### Command Referece
 
