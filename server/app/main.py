@@ -3,10 +3,13 @@ from datetime import datetime
 import pandas as pd
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from server import DATA_DIR
+from server.app.timelapse import get_captures
 
 app = FastAPI()
+app.mount("/media", StaticFiles(directory=DATA_DIR), name="media")
 
 # Handle CORS
 origins = ["*"]
@@ -17,6 +20,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/timelapse/")
+def timelapse(request: Request):
+    captures = get_captures()
+    return {"count": len(captures), "captures": captures}
 
 
 @app.get("/sensors/")
