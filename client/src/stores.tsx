@@ -29,7 +29,7 @@ export class UIStore {
     }
 
     get theme() {
-        return { colorScheme: this.colorScheme }
+        return { colorScheme: this.colorScheme, primaryColor: 'green' }
     }
 
     loadSettings() {

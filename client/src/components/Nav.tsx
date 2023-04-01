@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from "react-router-dom"
 import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core'
 import {
     IconLayoutBoardSplit,
@@ -62,10 +63,10 @@ const useStyles = createStyles((theme) => ({
 }))
 
 const data = [
-    { link: '', label: 'Overview', icon: IconLayoutBoardSplit },
-    { link: '', label: 'Timeseries', icon: IconChartLine },
-    { link: '', label: 'Timelapse', icon: IconCamera },
-    { link: '', label: 'Settings', icon: IconSettings },
+    { link: '/', label: 'Overview', icon: IconLayoutBoardSplit },
+    { link: '/timeseries', label: 'Timeseries', icon: IconChartLine },
+    { link: '/timelapse', label: 'Timelapse', icon: IconCamera },
+    { link: '/settings', label: 'Settings', icon: IconSettings },
 ]
 
 export const Nav = () => {
@@ -73,18 +74,12 @@ export const Nav = () => {
     const [active, setActive] = useState('Overview')
 
     const links = data.map((item) => (
-        <a
-            className={cx(classes.link, { [classes.linkActive]: item.label === active })}
-            href={item.link}
-            key={item.label}
-            onClick={(event) => {
-                event.preventDefault()
-                setActive(item.label)
-            }}
-        >
-            <item.icon className={classes.linkIcon} stroke={1.5} />
-            <span>{item.label}</span>
-        </a>
+        <div onClick={() => setActive(item.label)} key={item.label}>
+            <Link to={item.link} className={cx(classes.link, { [classes.linkActive]: item.label === active })}>
+                <item.icon className={classes.linkIcon} stroke={1.5} />
+                <span>{item.label}</span>
+            </Link>
+        </div>
     ))
 
     return (
