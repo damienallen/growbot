@@ -1,50 +1,59 @@
 import React from 'react'
 import { makeAutoObservable } from 'mobx'
-import Cookies from 'universal-cookie'
+import localforge from 'localforage'
 import { ColorScheme } from '@mantine/core'
 
 
 export class Store {
     public ui: UIStore
     public server: ServerStore
-    public settings: Cookies
 
     constructor() {
         this.ui = new UIStore(this)
         this.server = new ServerStore(this)
-        this.settings = new Cookies()
     }
 }
 
 export class UIStore {
 
-    public colorScheme: ColorScheme = 'dark'
-
-    constructor(public root: Store) {
-        makeAutoObservable(this, {}, { autoBind: true })
-    }
+    public colorScheme: ColorScheme = 'light'
 
     toggleColorScheme() {
         this.colorScheme = this.colorScheme === 'dark' ? 'light' : 'dark'
-        console.log(this.colorScheme)
+        localforge.setItem('colorScheme', this.colorScheme)
+    }
+
+    setColorScheme(value: ColorScheme) {
+        this.colorScheme = value
+        localforge.setItem('colorScheme', this.colorScheme)
     }
 
     get theme() {
         return { colorScheme: this.colorScheme }
     }
 
+    loadSettings() {
+        localforge.getItem('colorScheme').then((value) => {
+            this.setColorScheme(value as ColorScheme)
+        })
+    }
+
+    constructor(public root: Store) {
+        makeAutoObservable(this, {}, { autoBind: true })
+        this.loadSettings()
+    }
 }
 
 export class ServerStore {
 
     host: string = 'localhost'
 
-    constructor(public root: Store) {
-        makeAutoObservable(this)
-    }
-
     setHost(value: string) {
         this.host = value
+    }
+
+    constructor(public root: Store) {
+        makeAutoObservable(this)
     }
 
 }

@@ -3,12 +3,10 @@ import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/c
 import {
     IconBellRinging,
     IconFingerprint,
-    IconKey,
     IconSettings,
-    Icon2fa,
-    IconDatabaseImport,
     IconReceipt2,
 } from '@tabler/icons-react'
+
 import { HeaderIcon } from './HeaderIcon'
 import { appVersion } from '../App'
 import { ThemeToggle } from './ThemeToggle'
@@ -64,18 +62,15 @@ const useStyles = createStyles((theme) => ({
 }))
 
 const data = [
-    { link: '', label: 'Notifications', icon: IconBellRinging },
-    { link: '', label: 'Billing', icon: IconReceipt2 },
-    { link: '', label: 'Security', icon: IconFingerprint },
-    { link: '', label: 'SSH Keys', icon: IconKey },
-    { link: '', label: 'Databases', icon: IconDatabaseImport },
-    { link: '', label: 'Authentication', icon: Icon2fa },
-    { link: '', label: 'Other Settings', icon: IconSettings },
+    { link: '', label: 'Overview', icon: IconBellRinging },
+    { link: '', label: 'Timeseries', icon: IconReceipt2 },
+    { link: '', label: 'Timelapse', icon: IconFingerprint },
+    { link: '', label: 'Settings', icon: IconSettings },
 ]
 
 export const Nav = () => {
     const { classes, cx } = useStyles()
-    const [active, setActive] = useState('Billing')
+    const [active, setActive] = useState('Overview')
 
     const links = data.map((item) => (
         <a

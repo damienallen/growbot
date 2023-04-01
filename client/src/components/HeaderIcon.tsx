@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/core'
-import { RiPlantLine } from 'react-icons/ri'
+import { IconPlant } from '@tabler/icons-react'
 
 
 const useStyles = createStyles((theme) => ({
@@ -21,7 +21,7 @@ export const HeaderIcon = () => {
     const { classes } = useStyles()
     return (
         <div className={classes.container}>
-            <RiPlantLine className={classes.icon} />
+            <IconPlant className={classes.icon} />
             <div className={classes.text}>growbot</div>
         </div>
     )
