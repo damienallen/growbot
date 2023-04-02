@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core'
 import {
     IconLayoutBoardSplit,
@@ -31,6 +31,7 @@ const useStyles = createStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         textDecoration: 'none',
+        textTransform: 'capitalize',
         fontSize: theme.fontSizes.sm,
         color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
         padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
@@ -63,15 +64,17 @@ const useStyles = createStyles((theme) => ({
 }))
 
 const data = [
-    { link: '/', label: 'Overview', icon: IconLayoutBoardSplit },
-    { link: '/timeseries', label: 'Timeseries', icon: IconChartLine },
-    { link: '/timelapse', label: 'Timelapse', icon: IconCamera },
-    { link: '/settings', label: 'Settings', icon: IconSettings },
+    { link: '/', label: 'overview', icon: IconLayoutBoardSplit },
+    { link: '/timeseries', label: 'timeseries', icon: IconChartLine },
+    { link: '/timelapse', label: 'timelapse', icon: IconCamera },
+    { link: '/settings', label: 'settings', icon: IconSettings },
 ]
 
 export const Nav = () => {
     const { classes, cx } = useStyles()
-    const [active, setActive] = useState('Overview')
+    const location = useLocation()
+
+    const [active, setActive] = useState(location.pathname === '/' ? 'overview' : location.pathname.replace('/', ''))
 
     const links = data.map((item) => (
         <Link
