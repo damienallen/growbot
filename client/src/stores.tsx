@@ -71,6 +71,7 @@ export class TimelapseStore {
 
     speed: number = 1
     interval: number = 0
+    windowSize: string = 'Day'
 
     setPaused = (value: boolean) => {
         this.paused = value
@@ -83,6 +84,10 @@ export class TimelapseStore {
             const fps = 15 * this.speed
             this.interval = setInterval(this.next, 1000 / fps)
         }
+    }
+
+    setWindowSize = (value: string) => {
+        this.windowSize = value
     }
 
     togglePlayback = () => {

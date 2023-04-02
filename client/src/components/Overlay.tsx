@@ -48,37 +48,41 @@ const useStyles = createStyles((theme) => ({
         flex: 0,
         marginBottom: theme.spacing.xs,
         padding: theme.spacing.sm,
+    },
+    timestamp: {
+        paddingRight: theme.spacing.sm,
+        fontWeight: 'bold'
     }
 }))
 
-const ControlIcon = (props: { icon: any }) => {
+const OverlayIcon = (props: { icon: any }) => {
     return <props.icon strokeWidth={1.5} color="white" size="36" />
 }
 
-export const Controls = observer(() => {
+export const Overlay = observer(() => {
     const { timelapse } = useStores()
     const { classes } = useStyles()
 
     const playbackIcon = timelapse.paused ?
-        <ControlIcon icon={IconPlayerPlay} /> :
-        <ControlIcon icon={IconPlayerPause} />
+        <OverlayIcon icon={IconPlayerPlay} /> :
+        <OverlayIcon icon={IconPlayerPause} />
 
     let speedIcon
     switch (timelapse.speed) {
         case 0.5:
-            speedIcon = <ControlIcon icon={IconMultiplier05x} />
+            speedIcon = <OverlayIcon icon={IconMultiplier05x} />
             break;
 
         case 1:
-            speedIcon = <ControlIcon icon={IconMultiplier1x} />
+            speedIcon = <OverlayIcon icon={IconMultiplier1x} />
             break;
 
         case 1.5:
-            speedIcon = <ControlIcon icon={IconMultiplier15x} />
+            speedIcon = <OverlayIcon icon={IconMultiplier15x} />
             break;
 
         case 2:
-            speedIcon = <ControlIcon icon={IconMultiplier2x} />
+            speedIcon = <OverlayIcon icon={IconMultiplier2x} />
             break;
 
         default:
@@ -88,7 +92,8 @@ export const Controls = observer(() => {
     return (
         <div className={classes.container}>
             <div className={classes.header}>
-                <div>
+                <div></div>
+                <div className={classes.timestamp}>
                     {timelapse.currentTimestamp}
                 </div>
             </div>

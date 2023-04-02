@@ -1,5 +1,6 @@
-import { Container, Grid, createStyles } from '@mantine/core'
+import { Container, Grid, Group, createStyles } from '@mantine/core'
 import { Canvas } from '../components/Canvas'
+import { WindowSelect } from '../components/WindowSelect'
 
 
 const useStyles = createStyles(() => ({
@@ -16,7 +17,10 @@ export const Timelapse = () => {
 
     return (
         <Container className={classes.container} size="sm" px="sm">
-            <h1>Timelapse</h1>
+            <Group position="apart">
+                <h1>Timelapse</h1>
+                <WindowSelect />
+            </Group>
             <Grid>
                 <Grid.Col xs={12}><Canvas /></Grid.Col>
             </Grid>

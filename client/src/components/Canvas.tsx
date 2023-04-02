@@ -4,7 +4,7 @@ import { createStyles } from '@mantine/core'
 import { useCanvas } from '../hooks/useCanvas'
 import { useStores } from '../stores'
 import { useEffect, useRef } from 'react'
-import { Controls } from './Controls'
+import { Overlay } from './Overlay'
 
 const useStyles = createStyles((theme) => ({
     container: {
@@ -41,7 +41,7 @@ export const Canvas = observer(() => {
     return (
         <div className={classes.container} ref={containerRef}>
             <canvas className={classes.canvas} ref={canvasRef} />
-            <Controls />
+            <Overlay />
         </div>
     )
 })
