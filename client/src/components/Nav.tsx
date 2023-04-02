@@ -89,7 +89,7 @@ export const Nav = () => {
     ))
 
     return (
-        <Navbar className={classes.navbar} height={700} width={{ sm: 300 }} p="md">
+        <Navbar className={classes.navbar} width={{ sm: 300 }} p="md">
             <Navbar.Section grow>
                 <Group className={classes.header} position="apart">
                     <HeaderIcon />

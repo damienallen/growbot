@@ -64,14 +64,24 @@ export class ServerStore {
 
 export class TimelapseStore {
 
+    paused: boolean = false
     index: number = 0
     captures: string[] = []
+
+    setPaused(value: boolean) {
+        this.paused = value
+    }
+
+    togglePlayback = () => {
+        this.setPaused(!this.paused)
+    }
 
     setIndex(value: number) {
         this.index = value
     }
 
     next() {
+        if (this.paused) return
         this.index = this.index < this.captures.length - 1 ? this.index + 1 : 0
     }
 
