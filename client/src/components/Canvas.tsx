@@ -26,10 +26,7 @@ export const Canvas = observer(() => {
     const draw = (ctx: any) => {
         const img = new Image()
         img.src = timelapse.currentImg
-        img.onload = () => {
-            ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height)
-            timelapse.next()
-        }
+        img.onload = () => ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height)
     }
 
     const canvasRef = useCanvas(draw)

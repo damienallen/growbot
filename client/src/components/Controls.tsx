@@ -1,7 +1,14 @@
 import { observer } from 'mobx-react'
 import { UnstyledButton, createStyles } from '@mantine/core'
 
-import { IconPlayerPlay, IconPlayerPause, IconMultiplier1x } from '@tabler/icons-react'
+import {
+    IconPlayerPlay,
+    IconPlayerPause,
+    IconMultiplier05x,
+    IconMultiplier1x,
+    IconMultiplier15x,
+    IconMultiplier2x,
+} from '@tabler/icons-react'
 import { useStores } from '../stores'
 
 const useStyles = createStyles((theme) => ({
@@ -36,17 +43,41 @@ export const Controls = observer(() => {
     const { timelapse } = useStores()
     const { classes } = useStyles()
 
-    const playbackButton = timelapse.paused ? <IconPlayerPlay color="white" /> : <IconPlayerPause color="white" />
+    const playbackIcon = timelapse.paused ?
+        <IconPlayerPlay color="white" size="36" /> :
+        <IconPlayerPause color="white" size="36" />
+
+    let speedIcon
+    switch (timelapse.speed) {
+        case 0.5:
+            speedIcon = <IconMultiplier05x color="white" size="36" />
+            break;
+
+        case 1:
+            speedIcon = <IconMultiplier1x color="white" size="36" />
+            break;
+
+        case 1.5:
+            speedIcon = <IconMultiplier15x color="white" size="36" />
+            break;
+
+        case 2:
+            speedIcon = <IconMultiplier2x color="white" size="36" />
+            break;
+
+        default:
+            break;
+    }
 
     return (
         <div className={classes.container}>
             <div className={classes.header}></div>
             <div className={classes.footer}>
                 <UnstyledButton onClick={timelapse.togglePlayback} className={classes.button}>
-                    {playbackButton}
+                    {playbackIcon}
                 </UnstyledButton>
-                <UnstyledButton className={classes.button}>
-                    <IconMultiplier1x color="white" />
+                <UnstyledButton onClick={timelapse.toggleSpeed} className={classes.button}>
+                    {speedIcon}
                 </UnstyledButton>
             </div>
         </div>

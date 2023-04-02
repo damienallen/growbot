@@ -64,23 +64,48 @@ export class ServerStore {
 
 export class TimelapseStore {
 
-    paused: boolean = false
+    paused: boolean = true
     index: number = 0
     captures: string[] = []
 
+    speed: number = 1
+    interval: number = 0
+
     setPaused(value: boolean) {
         this.paused = value
+        this.updateInterval()
+    }
+
+    updateInterval = () => {
+        clearInterval(this.interval)
+        if (!this.paused) {
+            const fps = 15 * this.speed
+            this.interval = setInterval(this.next, 1000 / fps)
+        }
     }
 
     togglePlayback = () => {
         this.setPaused(!this.paused)
     }
 
+    toggleSpeed = () => {
+        if (this.speed < 2) {
+            this.setSpeed(this.speed + 0.5)
+        } else {
+            this.setSpeed(0.5)
+        }
+        this.updateInterval()
+    }
+
+    setSpeed(value: number) {
+        this.speed = value
+    }
+
     setIndex(value: number) {
         this.index = value
     }
 
-    next() {
+    next = () => {
         if (this.paused) return
         this.index = this.index < this.captures.length - 1 ? this.index + 1 : 0
     }
@@ -98,6 +123,7 @@ export class TimelapseStore {
         const response = await fetch(capturesUrl)
         const data = await response.json()
         this.setCaptures(data.captures)
+        this.setPaused(false)
     }
 
 

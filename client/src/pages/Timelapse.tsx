@@ -1,4 +1,4 @@
-import { Container, Grid, Slider, createStyles } from '@mantine/core'
+import { Container, Grid, Slider, createStyles, useMantineTheme } from '@mantine/core'
 import { Canvas } from '../components/Canvas'
 import { useStores } from '../stores'
 import { observer } from 'mobx-react'
@@ -14,6 +14,7 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export const Timelapse = observer(() => {
+    const theme = useMantineTheme()
     const { timelapse } = useStores()
     const { classes } = useStyles()
 
@@ -29,7 +30,7 @@ export const Timelapse = observer(() => {
             <Grid>
                 <Grid.Col xs={12}><Canvas /></Grid.Col>
                 <Grid.Col xs={12}>
-                    <Slider value={timelapse.index} max={timelapse.captures.length} marks={marks} />
+                    <Slider color={theme.colorScheme === 'dark' ? 'green' : 'gray'} value={timelapse.index} max={timelapse.captures.length} marks={marks} />
                 </Grid.Col>
             </Grid>
         </Container>
