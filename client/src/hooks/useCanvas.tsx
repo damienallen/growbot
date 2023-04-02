@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react'
 
 export const useCanvas = (draw: any) => {
 
-    const canvasRef = useRef(null)
+    const canvasRef: any = useRef(null)
 
     useEffect(() => {
 

@@ -1,5 +1,6 @@
 import { Container, Grid, Slider, createStyles } from '@mantine/core'
 import { Canvas } from '../components/Canvas'
+import { useStores } from '../stores'
 
 
 const useStyles = createStyles((theme) => ({
@@ -12,6 +13,7 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export const Timelapse = () => {
+    const { server } = useStores()
     const { classes } = useStyles()
 
     const marks = [
@@ -26,7 +28,7 @@ export const Timelapse = () => {
             <Grid>
                 <Grid.Col xs={12}><Canvas /></Grid.Col>
                 <Grid.Col xs={12}>
-                    <Slider defaultValue={40} marks={marks} />
+                    <Slider defaultValue={0} max={server.captures.length} marks={marks} />
                 </Grid.Col>
             </Grid>
         </Container>

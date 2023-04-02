@@ -23,16 +23,24 @@ export const Canvas = observer(() => {
     const { server } = useStores()
     const { classes } = useStyles()
 
-    const draw = (ctx: any, frameCount: number) => {
+    let captureInd = 0
+
+    const draw = (ctx: any) => {
         const img = new Image()
-        img.src = server.host + '/media/captures/2023/20230331_110008.jpg'
+        img.src = server.host + server.captures[captureInd]
         img.onload = () => {
             ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height)
+
+            if (captureInd < server.captures.length) {
+                captureInd++
+            } else {
+                captureInd = 0
+            }
         }
     }
 
     const canvasRef = useCanvas(draw)
-    const containerRef = useRef(null)
+    const containerRef: any = useRef(null)
     useEffect(() => {
         if (containerRef.current && canvasRef.current) {
             canvasRef.current.height = containerRef.current.clientHeight
