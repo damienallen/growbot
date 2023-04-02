@@ -22,8 +22,8 @@ app.add_middleware(
 )
 
 
-@app.get("/timelapse/")
-def timelapse(request: Request):
+@app.get("/captures/")
+def captures(request: Request):
     captures = get_captures()
     return {"count": len(captures), "captures": captures}
 

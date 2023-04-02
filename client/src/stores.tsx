@@ -46,14 +46,28 @@ export class UIStore {
 
 export class ServerStore {
 
-    host: string = 'localhost'
+    host: string = 'http://localhost:8888'
+    captures: string[] = []
 
     setHost(value: string) {
         this.host = value
     }
 
+    setCaptures(value: string[]) {
+        this.captures = value
+    }
+
+    fetchCaptures = async () => {
+        const capturesUrl = `${this.host}/captures`
+        const response = await fetch(capturesUrl)
+        const data = await response.json()
+        this.setCaptures(data.captures)
+    }
+
+
     constructor(public root: Store) {
         makeAutoObservable(this)
+        this.fetchCaptures()
     }
 
 }

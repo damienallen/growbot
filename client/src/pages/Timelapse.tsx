@@ -1,4 +1,4 @@
-import { Container, Grid, Group, Slider, createStyles } from '@mantine/core'
+import { Container, Grid, Slider, createStyles } from '@mantine/core'
 import { Canvas } from '../components/Canvas'
 
 import { IconPlayerPause, IconMultiplier1x } from '@tabler/icons-react'

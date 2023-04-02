@@ -1,34 +1,46 @@
+import { observer } from 'mobx-react'
 import { createStyles } from '@mantine/core'
 
 import { useCanvas } from '../hooks/useCanvas'
+import { useStores } from '../stores'
+import { useEffect, useRef } from 'react'
 
 const useStyles = createStyles((theme) => ({
     container: {
         flex: 1,
-        height: '320px',
+        aspectRatio: '4 / 3',
+        width: '100%',
+    },
+    canvas: {
         background: '#ddd',
         borderRadius: '0.5rem'
-    },
+    }
 }))
 
-export const Canvas = () => {
+export const Canvas = observer(() => {
+    const { server } = useStores()
     const { classes } = useStyles()
 
-    const draw = (ctx: any) => {
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-
+    const draw = (ctx: any, frameCount: number) => {
         const img = new Image()
-        img.onload = function () {
-            ctx.drawImage(img, 0, 0)
+        img.src = server.host + '/media/captures/2023/20230331_110008.jpg'
+        img.onload = () => {
+            ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height)
         }
-        img.src = '/files/4531/backdrop.png'
     }
 
     const canvasRef = useCanvas(draw)
+    const containerRef = useRef(null)
+    useEffect(() => {
+        if (containerRef.current && canvasRef.current) {
+            canvasRef.current.height = containerRef.current.clientHeight
+            canvasRef.current.width = containerRef.current.clientWidth
+        }
+    }, [containerRef, canvasRef])
 
     return (
-        <div className={classes.container}>
-            <canvas ref={canvasRef} />
+        <div className={classes.container} ref={containerRef}>
+            <canvas className={classes.canvas} ref={canvasRef} />
         </div>
     )
-}
+})
