@@ -20,12 +20,12 @@ export class UIStore {
 
     public colorScheme: ColorScheme = 'light'
 
-    toggleColorScheme() {
+    toggleColorScheme = () => {
         this.colorScheme = this.colorScheme === 'dark' ? 'light' : 'dark'
         localforge.setItem('colorScheme', this.colorScheme)
     }
 
-    setColorScheme(value: ColorScheme) {
+    setColorScheme = (value: ColorScheme) => {
         this.colorScheme = value
         localforge.setItem('colorScheme', this.colorScheme)
     }
@@ -34,7 +34,7 @@ export class UIStore {
         return { colorScheme: this.colorScheme, primaryColor: 'green' }
     }
 
-    loadSettings() {
+    loadSettings = () => {
         localforge.getItem('colorScheme').then((value) => {
             this.setColorScheme(value as ColorScheme)
         })
@@ -51,7 +51,7 @@ export class ServerStore {
 
     host: string = 'http://localhost:8888'
 
-    setHost(value: string) {
+    setHost = (value: string) => {
         this.host = value
     }
 
@@ -71,7 +71,7 @@ export class TimelapseStore {
     speed: number = 1
     interval: number = 0
 
-    setPaused(value: boolean) {
+    setPaused = (value: boolean) => {
         this.paused = value
         this.updateInterval()
     }
@@ -97,11 +97,11 @@ export class TimelapseStore {
         this.updateInterval()
     }
 
-    setSpeed(value: number) {
+    setSpeed = (value: number) => {
         this.speed = value
     }
 
-    setIndex(value: number) {
+    setIndex = (value: number) => {
         this.index = value
     }
 
@@ -110,12 +110,23 @@ export class TimelapseStore {
         this.index = this.index < this.captures.length - 1 ? this.index + 1 : 0
     }
 
+    setCaptures = (value: string[]) => {
+        this.captures = value
+    }
+
+
     get currentImg() {
         return this.root.server.host + this.captures[this.index]
     }
 
-    setCaptures(value: string[]) {
-        this.captures = value
+    get currentTimestamp() {
+        const filepath = this.captures[this.index]
+        if (filepath) {
+            const segs = filepath.split('/')
+            return segs[segs.length - 1].replace('.jpg', '')
+        }
+
+        return ''
     }
 
     fetchCaptures = async () => {

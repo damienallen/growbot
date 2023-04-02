@@ -71,7 +71,11 @@ export const Controls = observer(() => {
 
     return (
         <div className={classes.container}>
-            <div className={classes.header}></div>
+            <div className={classes.header}>
+                <div>
+                    {timelapse.currentTimestamp}
+                </div>
+            </div>
             <div className={classes.footer}>
                 <UnstyledButton onClick={timelapse.togglePlayback} className={classes.button}>
                     {playbackIcon}

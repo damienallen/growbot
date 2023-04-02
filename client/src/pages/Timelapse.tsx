@@ -2,6 +2,7 @@ import { Container, Grid, Slider, createStyles, useMantineTheme } from '@mantine
 import { Canvas } from '../components/Canvas'
 import { useStores } from '../stores'
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 
 
 const useStyles = createStyles((theme) => ({
@@ -18,6 +19,12 @@ export const Timelapse = observer(() => {
     const { timelapse } = useStores()
     const { classes } = useStyles()
 
+    const [sliderValue, setSliderValue] = useState(0)
+
+    useEffect(() => {
+        setSliderValue(timelapse.index)
+    }, [timelapse.index])
+
     const marks = false ? [
         { value: 25, label: '06:00' },
         { value: 50, label: '12:00' },
@@ -30,7 +37,17 @@ export const Timelapse = observer(() => {
             <Grid>
                 <Grid.Col xs={12}><Canvas /></Grid.Col>
                 <Grid.Col xs={12}>
-                    <Slider color={theme.colorScheme === 'dark' ? 'green' : 'gray'} value={timelapse.index} max={timelapse.captures.length} marks={marks} />
+                    <Slider
+                        color={theme.colorScheme === 'dark' ? 'green' : 'gray'}
+                        onChange={(ind: number) => {
+                            timelapse.setIndex(ind)
+                            timelapse.setPaused(true)
+                        }}
+                        value={sliderValue}
+                        max={timelapse.captures.length}
+                        marks={marks}
+                        size={4}
+                    />
                 </Grid.Col>
             </Grid>
         </Container>
