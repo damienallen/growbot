@@ -6,13 +6,13 @@ import { ColorScheme } from '@mantine/core'
 
 export class Store {
     public ui: UIStore
-    public server: ServerStore
     public timelapse: TimelapseStore
+    public server: ServerStore
 
     constructor() {
         this.ui = new UIStore(this)
-        this.server = new ServerStore(this)
         this.timelapse = new TimelapseStore(this)
+        this.server = new ServerStore(this)
     }
 }
 
@@ -49,15 +49,29 @@ export class UIStore {
 
 export class ServerStore {
 
-    // host: string = 'http://localhost:8888'
-    host: string = 'http://pi4:4242'
+    host: string = 'pi4:4242'
 
     setHost = (value: string) => {
         this.host = value
+        localforge.setItem('host', this.host)
+
+        console.debug(`Using growbot host '${this.host}'`)
+        this.root.timelapse.fetchCaptures()
+    }
+
+    get hostname() {
+        return 'http://' + this.host
+    }
+
+    loadSettings = () => {
+        localforge.getItem('host').then((value) => {
+            this.setHost(value as string)
+        })
     }
 
     constructor(public root: Store) {
         makeAutoObservable(this)
+        this.loadSettings()
     }
 
 }
@@ -122,7 +136,7 @@ export class TimelapseStore {
 
 
     get currentImg() {
-        return this.root.server.host + this.captures[this.index]
+        return this.root.server.hostname + this.captures[this.index]
     }
 
     get currentTimestamp() {
@@ -136,7 +150,7 @@ export class TimelapseStore {
     }
 
     fetchCaptures = async () => {
-        const capturesUrl = `${this.root.server.host}/captures`
+        const capturesUrl = `${this.root.server.hostname}/captures`
         const response = await fetch(capturesUrl)
         const data = await response.json()
         this.setCaptures(data.captures)
@@ -146,7 +160,6 @@ export class TimelapseStore {
 
     constructor(public root: Store) {
         makeAutoObservable(this)
-        this.fetchCaptures()
     }
 
 }

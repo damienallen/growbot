@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
         width: '100%',
         height: '100%',
         position: 'absolute',
-        padding: '16px 12px',
+        padding: '24px 16px',
         top: 0,
         left: 0,
         display: 'flex',

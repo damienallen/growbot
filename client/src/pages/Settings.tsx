@@ -1,4 +1,8 @@
-import { Container, Card, Group, Switch, Text, createStyles, rem } from '@mantine/core'
+import { Container, Card, Group, Switch, Text, createStyles, rem, TextInput } from '@mantine/core'
+import { IconServer } from '@tabler/icons-react'
+import { observer } from 'mobx-react'
+import { useStores } from '../stores'
+import { useEffect, useState } from 'react'
 
 
 const useStyles = createStyles((theme) => ({
@@ -10,6 +14,7 @@ const useStyles = createStyles((theme) => ({
     },
     card: {
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+        margin: '12px 0'
     },
 
     item: {
@@ -46,11 +51,16 @@ const data = [
 ]
 
 
-export const Settings = () => {
+export const Settings = observer(() => {
+    const { server } = useStores()
     const { classes } = useStyles()
 
+    const [host, setHost] = useState('')
+
+    useEffect(() => setHost(server.host), [server.host])
+
     const items = data.map((item) => (
-        <Group position="apart" className={classes.item} noWrap spacing="xl">
+        <Group position="apart" className={classes.item} noWrap spacing="xl" key={item.title}>
             <div>
                 <Text>{item.title}</Text>
                 <Text size="xs" color="dimmed">
@@ -65,14 +75,31 @@ export const Settings = () => {
         <Container className={classes.container} size="sm" px="md">
             <h1>Settings</h1>
             <Card withBorder radius="md" p="xl" className={classes.card}>
+                <Group position="apart" className={classes.item} noWrap spacing="xl">
+                    <div>
+                        <Text>Host</Text>
+                        <Text size="xs" color="dimmed">
+                            Set centralized growbot server
+                        </Text>
+                    </div>
+                    <TextInput
+                        placeholder="pi4:4242"
+                        value={host}
+                        onChange={(e) => setHost(e.currentTarget.value)}
+                        onBlur={(e) => server.setHost(e.currentTarget.value)}
+                        icon={<IconServer size={rem(16)} />}
+                    />
+                </Group>
+            </Card>
+            <Card withBorder radius="md" p="xl" className={classes.card}>
                 <Text fz="lg" className={classes.title} fw={500}>
                     Configure notifications
                 </Text>
                 <Text fz="xs" c="dimmed" mt={3} mb="xl">
-                    Choose what notifications you want to receive"
+                    Choose what notifications you want to receive
                 </Text>
                 {items}
             </Card>
         </Container>
     )
-}
+})

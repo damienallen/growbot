@@ -51,7 +51,7 @@ export const ProgressSlider = observer(() => {
         setSliderValue(timelapse.index)
     }, [timelapse.index])
 
-    const marks = true ? [
+    const marks = false ? [
         { value: 25, label: '06:00' },
         { value: 50, label: '12:00' },
         { value: 75, label: '18:00' },

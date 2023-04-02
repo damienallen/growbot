@@ -14,7 +14,7 @@ const useStyles = createStyles((theme) => ({
         width: '100%',
     },
     canvas: {
-        background: '#ddd',
+        background: theme.colors.gray[9],
         borderRadius: '0.5rem'
     }
 }))
