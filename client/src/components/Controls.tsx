@@ -9,7 +9,9 @@ import {
     IconMultiplier15x,
     IconMultiplier2x,
 } from '@tabler/icons-react'
+
 import { useStores } from '../stores'
+import { ProgressSlider } from './ProgressSlider'
 
 const useStyles = createStyles((theme) => ({
     container: {
@@ -31,38 +33,52 @@ const useStyles = createStyles((theme) => ({
     },
     footer: {
         display: 'flex',
+        flexDirection: 'column',
+        flex: 0
+    },
+    controls: {
+        display: 'flex',
         justifyContent: 'space-between',
         flex: 0
     },
     button: {
         padding: '0 4px'
+    },
+    slider: {
+        flex: 0,
+        marginBottom: theme.spacing.xs,
+        padding: theme.spacing.sm,
     }
 }))
+
+const ControlIcon = (props: { icon: any }) => {
+    return <props.icon strokeWidth={1.5} color="white" size="36" />
+}
 
 export const Controls = observer(() => {
     const { timelapse } = useStores()
     const { classes } = useStyles()
 
     const playbackIcon = timelapse.paused ?
-        <IconPlayerPlay color="white" size="36" /> :
-        <IconPlayerPause color="white" size="36" />
+        <ControlIcon icon={IconPlayerPlay} /> :
+        <ControlIcon icon={IconPlayerPause} />
 
     let speedIcon
     switch (timelapse.speed) {
         case 0.5:
-            speedIcon = <IconMultiplier05x color="white" size="36" />
+            speedIcon = <ControlIcon icon={IconMultiplier05x} />
             break;
 
         case 1:
-            speedIcon = <IconMultiplier1x color="white" size="36" />
+            speedIcon = <ControlIcon icon={IconMultiplier1x} />
             break;
 
         case 1.5:
-            speedIcon = <IconMultiplier15x color="white" size="36" />
+            speedIcon = <ControlIcon icon={IconMultiplier15x} />
             break;
 
         case 2:
-            speedIcon = <IconMultiplier2x color="white" size="36" />
+            speedIcon = <ControlIcon icon={IconMultiplier2x} />
             break;
 
         default:
@@ -77,12 +93,17 @@ export const Controls = observer(() => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <UnstyledButton onClick={timelapse.togglePlayback} className={classes.button}>
-                    {playbackIcon}
-                </UnstyledButton>
-                <UnstyledButton onClick={timelapse.toggleSpeed} className={classes.button}>
-                    {speedIcon}
-                </UnstyledButton>
+                <div className={classes.slider}>
+                    <ProgressSlider />
+                </div>
+                <div className={classes.controls}>
+                    <UnstyledButton onClick={timelapse.togglePlayback} className={classes.button}>
+                        {playbackIcon}
+                    </UnstyledButton>
+                    <UnstyledButton onClick={timelapse.toggleSpeed} className={classes.button}>
+                        {speedIcon}
+                    </UnstyledButton>
+                </div>
             </div>
         </div>
     )
