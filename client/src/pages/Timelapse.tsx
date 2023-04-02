@@ -1,7 +1,6 @@
 import { Container, Grid, Slider, createStyles } from '@mantine/core'
 import { Canvas } from '../components/Canvas'
 
-import { IconPlayerPause, IconMultiplier1x } from '@tabler/icons-react'
 
 const useStyles = createStyles((theme) => ({
     container: {
@@ -27,15 +26,7 @@ export const Timelapse = () => {
             <Grid>
                 <Grid.Col xs={12}><Canvas /></Grid.Col>
                 <Grid.Col xs={12}>
-                    <Grid>
-                        <Grid.Col xs={11}>
-                            <Slider defaultValue={40} marks={marks} />
-                        </Grid.Col>
-                        <Grid.Col xs={1}>
-                            <IconPlayerPause />
-                            <IconMultiplier1x />
-                        </Grid.Col>
-                    </Grid>
+                    <Slider defaultValue={40} marks={marks} />
                 </Grid.Col>
             </Grid>
         </Container>
