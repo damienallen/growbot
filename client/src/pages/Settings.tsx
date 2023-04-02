@@ -5,7 +5,8 @@ const useStyles = createStyles((theme) => ({
     container: {
         flex: 1,
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        justifyContent: 'center'
     },
     card: {
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
