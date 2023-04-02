@@ -20,22 +20,15 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export const Canvas = observer(() => {
-    const { server } = useStores()
+    const { timelapse } = useStores()
     const { classes } = useStyles()
-
-    let captureInd = 0
 
     const draw = (ctx: any) => {
         const img = new Image()
-        img.src = server.host + server.captures[captureInd]
+        img.src = timelapse.currentImg
         img.onload = () => {
             ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height)
-
-            if (captureInd < server.captures.length) {
-                captureInd++
-            } else {
-                captureInd = 0
-            }
+            timelapse.next()
         }
     }
 

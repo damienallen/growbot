@@ -7,10 +7,12 @@ import { ColorScheme } from '@mantine/core'
 export class Store {
     public ui: UIStore
     public server: ServerStore
+    public timelapse: TimelapseStore
 
     constructor() {
         this.ui = new UIStore(this)
         this.server = new ServerStore(this)
+        this.timelapse = new TimelapseStore(this)
     }
 }
 
@@ -44,13 +46,37 @@ export class UIStore {
     }
 }
 
+
 export class ServerStore {
 
     host: string = 'http://localhost:8888'
-    captures: string[] = []
 
     setHost(value: string) {
         this.host = value
+    }
+
+    constructor(public root: Store) {
+        makeAutoObservable(this)
+    }
+
+}
+
+
+export class TimelapseStore {
+
+    index: number = 0
+    captures: string[] = []
+
+    setIndex(value: number) {
+        this.index = value
+    }
+
+    next() {
+        this.index = this.index < this.captures.length - 1 ? this.index + 1 : 0
+    }
+
+    get currentImg() {
+        return this.root.server.host + this.captures[this.index]
     }
 
     setCaptures(value: string[]) {
@@ -58,7 +84,7 @@ export class ServerStore {
     }
 
     fetchCaptures = async () => {
-        const capturesUrl = `${this.host}/captures`
+        const capturesUrl = `${this.root.server.host}/captures`
         const response = await fetch(capturesUrl)
         const data = await response.json()
         this.setCaptures(data.captures)

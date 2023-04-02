@@ -8,7 +8,6 @@ export const useCanvas = (draw: any) => {
 
         const canvas: any = canvasRef.current
         const context = canvas.getContext('2d')
-        context.imageSmoothingEnabled = false
 
         let frameCount = 0
         let animationFrameId: any
