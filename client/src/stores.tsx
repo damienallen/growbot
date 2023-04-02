@@ -49,7 +49,8 @@ export class UIStore {
 
 export class ServerStore {
 
-    host: string = 'http://localhost:8888'
+    // host: string = 'http://localhost:8888'
+    host: string = 'http://pi4:4242'
 
     setHost = (value: string) => {
         this.host = value

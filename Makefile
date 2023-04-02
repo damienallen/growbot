@@ -12,7 +12,7 @@ pull:
 	docker compose pull
 
 pi-up:
-	docker compose -f docker-compose.yml -f docker-compose.pi.yml up
+	docker compose -f docker-compose.yml -f docker-compose.pi.yml up -d
 
 pi-build:
 	docker compose -f docker-compose.yml -f docker-compose.pi.yml build
