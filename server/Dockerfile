@@ -33,4 +33,4 @@ RUN touch __init__.py \
 
 # Copy modules in production
 FROM dev as prod
-COPY . server/
+COPY ./server server/

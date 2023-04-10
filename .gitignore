@@ -1,6 +1,7 @@
 scripts/scratch/
 data/
 .vscode/
+influx.ipynb
 
 # Python
 __pycache__/

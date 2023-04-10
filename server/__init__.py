@@ -1,7 +1,12 @@
 import os
+import tomllib
+
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
+
+with open(ROOT / "pyproject.toml", "rb") as f:
+    VERSION = tomllib.load(f)["tool"]["poetry"]["version"]
 
 # Timeseries data
 if os.environ.get("DATA_DIR"):
