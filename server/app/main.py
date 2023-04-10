@@ -5,7 +5,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from server import DATA_DIR
+from server import DATA_DIR, VERSION
 from server.app.timelapse import get_captures
 
 app = FastAPI()
@@ -20,6 +20,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/")
+def index(request: Request):
+    return {"version": f"v{VERSION}"}
 
 
 @app.get("/captures/")
