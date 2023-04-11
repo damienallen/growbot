@@ -1,10 +1,13 @@
 from server.hub.spaces import client
-import os
+from decouple import config
 
 
 # List all buckets on your account
-print(os.environ.get("SPACES_KEY"))
+bucket_name = config("SPACES_BUCKET")
 response = client.list_buckets()
 spaces = [space["Name"] for space in response["Buckets"]]
 print("Spaces List: %s" % spaces)
- 
+
+bucket_objs = client.list_objects(Bucket=bucket_name)["Contents"]
+for obj in bucket_objs:
+    print(obj)
