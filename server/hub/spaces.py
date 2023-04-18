@@ -2,7 +2,9 @@ import boto3
 from botocore.client import Config
 from decouple import config
 
-# Initialize a session using DigitalOcean Spaces
+"""
+Initialize a session using DigitalOcean Spaces
+"""
 session = boto3.session.Session()
 client = session.client(
     "s3",

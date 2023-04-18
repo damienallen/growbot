@@ -1,20 +1,9 @@
-from influxdb_client import InfluxDBClient, Point
-from influxdb_client.client.write_api import SYNCHRONOUS
-import os
+from influxdb_client import Point
+from server.hub.influx import write_api, bucket_name
 import subprocess
 
 from server import CAPTURE_DIR
 from datetime import datetime
-
-bucket = "growbot"
-client = InfluxDBClient(
-    url="http://localhost:8086",
-    token=os.environ.get("DOCKER_INFLUXDB_INIT_ADMIN_TOKEN"),
-    org="pi",
-)
-
-write_api = client.write_api(write_options=SYNCHRONOUS)
-query_api = client.query_api()
 
 
 def run():
@@ -35,7 +24,7 @@ def run():
             .tag("path", file_path)
             .time(int(datetime.strptime(file_name, "%Y%m%d_%H%M%S.jpg").timestamp()))
         )
-        write_api.write(bucket=bucket, record=p)
+        write_api.write(bucket=bucket_name, record=p)
         print(p)
 
 
