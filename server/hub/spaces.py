@@ -5,6 +5,7 @@ from decouple import config
 """
 Initialize a session using DigitalOcean Spaces
 """
+bucket = config("SPACES_BUCKET")
 session = boto3.session.Session()
 client = session.client(
     "s3",

@@ -5,7 +5,7 @@ from decouple import config
 """
 Initialize connection to InfluxDB container 
 """
-bucket_name = config("SPACES_BUCKET")
+bucket_name = "growbot"
 org_name = "pi"
 
 client = InfluxDBClient(
