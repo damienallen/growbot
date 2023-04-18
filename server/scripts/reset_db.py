@@ -5,8 +5,8 @@ def run():
     """
     Delete Data
     """
-    start = "2020-01-01T00:00:00Z"
-    stop = "2025-01-01T00:00:00Z"
+    start = "1900-01-01T00:00:00Z"
+    stop = "2050-01-01T00:00:00Z"
     delete_api.delete(
         start, stop, '_measurement="photo"', bucket=bucket_name, org=org_name
     )
