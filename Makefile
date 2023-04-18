@@ -48,3 +48,10 @@ mqtt:
 
 capture:
 	python -m server.hub.capture
+
+# Scripts
+spaces_to_db:
+	python -m server.scripts.spaces_to_db
+
+reset_db:
+	python -m server.scripts.reset_db
