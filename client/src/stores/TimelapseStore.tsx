@@ -71,7 +71,8 @@ export class TimelapseStore {
             switch (value) {
                 case 'Day':
                     if (this.startDate) {
-                        this.setStopDate(new Date(this.startDate))
+                        this.setStartDate(dayjs(this.startDate).startOf('day').toDate())
+                        this.setStopDate(dayjs(this.startDate).endOf('day').toDate())
                     }
                     break
                 case 'Week':

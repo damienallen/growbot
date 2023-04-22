@@ -41,8 +41,8 @@ export const RangeSelect = observer(() => {
 
 
     const setDay = (date: DateValue) => {
-        timelapse.setStartDate(date)
-        timelapse.setStopDate(date)
+        timelapse.setStartDate(dayjs(date).startOf('day').toDate())
+        timelapse.setStopDate(dayjs(date).endOf('day').toDate())
     }
 
     const setWeek = (date: DateValue) => {
@@ -61,8 +61,8 @@ export const RangeSelect = observer(() => {
     }
 
     const setCustomRange = (dateRange: DatesRangeValue) => {
-        timelapse.setStartDate(dateRange[0])
-        timelapse.setStopDate(dateRange[1])
+        timelapse.setStartDate(dayjs(dateRange[0]).endOf('day').toDate())
+        timelapse.setStopDate(dayjs(dateRange[1]).endOf('day').toDate())
     }
 
 
