@@ -10,7 +10,7 @@ CAPTURES_BUCKET = "captures"
 org_name = "growbot"
 
 client = InfluxDBClient(
-    url="http://localhost:8086",
+    url="http://db:8086",
     token=config("INFLUXDB_TOKEN"),
     org=org_name,
 )
