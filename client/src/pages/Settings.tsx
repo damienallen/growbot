@@ -1,7 +1,7 @@
 import { Container, Card, Group, Switch, Text, createStyles, rem, TextInput } from '@mantine/core'
 import { IconServer } from '@tabler/icons-react'
 import { observer } from 'mobx-react'
-import { useStores } from '../stores'
+import { useStores, DEFAULT_HOST } from '../stores'
 import { useEffect, useState } from 'react'
 
 
@@ -83,7 +83,7 @@ export const Settings = observer(() => {
                         </Text>
                     </div>
                     <TextInput
-                        placeholder="pi4:4242"
+                        placeholder={DEFAULT_HOST}
                         value={host}
                         onChange={(e) => setHost(e.currentTarget.value)}
                         onBlur={(e) => server.setHost(e.currentTarget.value)}
