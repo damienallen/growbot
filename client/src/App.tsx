@@ -7,7 +7,7 @@ import {
 
 
 import { Layout } from './Layout'
-import { StoreProvider } from './stores'
+import { StoreProvider } from './stores/root'
 
 import { ErrorPage } from './pages/ErrorPage'
 import { Overview } from './pages/Overview'

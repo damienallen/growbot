@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { Slider, createStyles, rem } from '@mantine/core'
 
-import { useStores } from '../stores'
+import { useStores } from '../stores/root'
 import { useEffect, useState } from 'react'
 
 const useStyles = createStyles((theme) => ({

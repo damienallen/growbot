@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 
 import { Nav } from './components/Nav'
 
-import { useStores } from './stores'
+import { useStores } from './stores/root'
 
 const useStyles = createStyles(() => ({
   container: {

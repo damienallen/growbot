@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { observer } from "mobx-react"
 
 import { IconChevronDown } from "@tabler/icons-react"
-import { useStores } from "../stores"
+import { useStores } from "../stores/root"
 
 const useStyles = createStyles(() => ({
     root: {

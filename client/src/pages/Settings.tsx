@@ -1,7 +1,8 @@
 import { Container, Card, Group, Switch, Text, createStyles, rem, TextInput } from '@mantine/core'
 import { IconServer } from '@tabler/icons-react'
 import { observer } from 'mobx-react'
-import { useStores, DEFAULT_HOST } from '../stores'
+import { useStores } from '../stores/root'
+import { DEFAULT_HOST } from '../stores/ServerStore'
 import { useEffect, useState } from 'react'
 
 
