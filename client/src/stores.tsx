@@ -4,6 +4,8 @@ import localforge from 'localforage'
 import { ColorScheme } from '@mantine/core'
 
 
+export const DEFAULT_HOST ='localhost:4242'
+
 export class Store {
     public ui: UIStore
     public timelapse: TimelapseStore
@@ -49,7 +51,7 @@ export class UIStore {
 
 export class ServerStore {
 
-    host: string = 'pi4:4242'
+    host: string = DEFAULT_HOST
 
     setHost = (value: string) => {
         this.host = value

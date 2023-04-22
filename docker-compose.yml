@@ -5,13 +5,13 @@ services:
     <<: &server_base
       image: ghcr.io/damienallen/growbot-server:main
       build:
-        context: ./server
         cache_from:
           - ghcr.io/damienallen/growbot-server:main
         target: dev
+        dockerfile: ./server/Dockerfile
       restart: unless-stopped
-      env_file: ./config/.env
-      command: ["uvicorn", "server.app.main:app", "--host", "0.0.0.0"]
+      env_file: .env
+      command: ["uvicorn", "server.app.main:app", "--reload", "--host", "0.0.0.0"]
       volumes:
       - ./config/ssh:/ssh_keys/
       - ./config/ssh/known_hosts:/root/.ssh/known_hosts
@@ -25,7 +25,7 @@ services:
   db:
     image: influxdb:2.7.0
     restart: always
-    env_file: ./config/.env
+    env_file: .env
     ports:
       - 8086:8086
     volumes:

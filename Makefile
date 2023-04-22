@@ -26,7 +26,7 @@ pi-bash:
 
 # pi4-server
 camera-pull:
-	rsync -azP pi@pi4:/home/pi/growbot/data/captures ~/growbot/data
+	rsync -azP pi@pi4:/home/pi/growbot/data/ ~/growbot/data/
 
 
 # crony
@@ -48,3 +48,10 @@ mqtt:
 
 capture:
 	python -m server.hub.capture
+
+# Scripts
+spaces_to_db:
+	python -m server.scripts.spaces_to_db
+
+reset_db:
+	python -m server.scripts.reset_db

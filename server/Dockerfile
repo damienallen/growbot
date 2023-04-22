@@ -20,7 +20,8 @@ ENV DATA_DIR=/data \
 
 # Install system dependencies
 RUN apt-get update && apt-get upgrade -y \
-  && apt-get install --no-install-recommends -y bash nano cron rsync
+  && apt-get install --no-install-recommends -y \
+  bash nano cron rsync libvips libvips-tools
 
 # Install Poetry & Python dependencies
 RUN curl -sSL 'https://install.python-poetry.org' | python -
@@ -30,10 +31,6 @@ COPY ./pyproject.toml /poetry.lock* /code/
 RUN touch __init__.py \
   && poetry install --no-root --no-dev
 
-# Copy & install cronjobs
-# COPY ./cron /etc/cron.d/cronjob
-# RUN chmod 0644 /etc/cron.d/cronjob && crontab /etc/cron.d/cronjob
-
 # Copy modules in production
 FROM dev as prod
-COPY . server/
+COPY ./server server/
