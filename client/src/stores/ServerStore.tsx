@@ -15,6 +15,7 @@ export class ServerStore {
 
         console.debug(`Using growbot host '${this.host}'`)
         this.root.timelapse.fetchCaptures()
+        this.root.timelapse.fetchAvailable()
     }
 
     get hostname() {

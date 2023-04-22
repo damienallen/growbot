@@ -42,6 +42,7 @@ export class TimelapseStore {
     paused: boolean = true
     index: number = 0
     captures: Capture[] = []
+    captureDates: string[] = []
 
     speed: number = 1
     interval: number = 0
@@ -101,6 +102,8 @@ export class TimelapseStore {
         this.startDate = value
         console.debug('Start:', value)
         localforge.setItem('startDate', this.startDate)
+
+        this.fetchCaptures()
     }
 
     setStopDate = (value: DateValue) => {
@@ -140,6 +143,7 @@ export class TimelapseStore {
     }
 
     setCaptures = (value: any[]) => {
+        console.log(value)
         this.captures = value as Capture[]
     }
 
@@ -158,17 +162,32 @@ export class TimelapseStore {
         return ''
     }
 
-    get captureDates(): string[] {
-        // TODO: endpoint for this
-        return this.captures.map((c: Capture) => (dayjs(c.time).startOf('day').format()))
+    setCaptureDates(value: string[]) {
+        this.captureDates = value.map((date: string) => (dayjs(date).startOf('day').format()))
     }
 
     fetchCaptures = async () => {
-        const capturesUrl = `${this.root.server.hostname}/captures/`
-        const response = await fetch(capturesUrl)
+        if (this.startDate && this.stopDate) {
+            const startTime = this.startDate.toISOString()
+            const stopTime = this.stopDate.toISOString()
+            const queryParams = `?start=${startTime}&stop=${stopTime}`
+            const capturesUrl = `${this.root.server.hostname}/captures/${queryParams}`
+
+            const response = await fetch(capturesUrl)
+            const data = await response.json()
+            this.setCaptures(data.captures)
+            this.setPaused(false)
+        } else {
+            this.setCaptures([])
+            this.setPaused(false)
+        }
+    }
+
+    fetchAvailable = async () => {
+        const availableUrl = `${this.root.server.hostname}/captures/available/`
+        const response = await fetch(availableUrl)
         const data = await response.json()
-        this.setCaptures(data.captures)
-        this.setPaused(false)
+        this.setCaptureDates(data.dates)
     }
 
 

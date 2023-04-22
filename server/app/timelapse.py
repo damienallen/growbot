@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 from pathlib import Path
 
 from influxdb_client.client.flux_table import TableList
@@ -38,10 +37,12 @@ def load_captures(query: TableList) -> list[Capture]:
     return captures
 
 
-def get_captures() -> list[Capture]:
-    start = int(datetime(2020, 4, 6).timestamp())
-    stop = int(datetime(2020, 4, 10).timestamp())
+def extract_dates(query: TableList) -> list[Capture]:
+    records = json.loads(query.to_json(columns=["_time"]))
+    return set([record["_time"] for record in records])
 
+
+def get_captures(start: str, stop: str) -> list[Capture]:
     query = query_api.query(
         f"""
         import "influxdata/influxdb/schema"
@@ -55,6 +56,21 @@ def get_captures() -> list[Capture]:
     )
 
     return load_captures(query)
+
+
+def get_captured_dates() -> list[Capture]:
+    query = query_api.query(
+        f"""
+        import "influxdata/influxdb/schema"
+        from(bucket:"{CAPTURES_BUCKET}")
+        |> range(start: 0)
+        |> filter(fn: (r) => r["_measurement"] == "photo")
+        |> aggregateWindow(every: 1d, fn: first, createEmpty: false)
+        |> yield()
+        """
+    )
+
+    return extract_dates(query)
 
 
 def get_captures_from_file() -> list[str]:

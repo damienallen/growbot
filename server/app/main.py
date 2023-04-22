@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from server import DATA_DIR, VERSION
-from server.app.timelapse import get_captures
+from server.app.timelapse import get_captured_dates, get_captures
 
 app = FastAPI()
 app.mount("/media", StaticFiles(directory=DATA_DIR), name="media")
@@ -28,9 +28,15 @@ def index(request: Request):
 
 
 @app.get("/captures/")
-def captures(request: Request):
-    captures = get_captures()
+def captures(start: str, stop: str):
+    captures = get_captures(start, stop)
     return {"count": len(captures), "captures": captures}
+
+
+@app.get("/captures/available/")
+def captures_available(request: Request):
+    dates = get_captured_dates()
+    return {"count": len(dates), "dates": dates}
 
 
 @app.get("/sensors/")

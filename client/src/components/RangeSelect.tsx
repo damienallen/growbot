@@ -61,7 +61,7 @@ export const RangeSelect = observer(() => {
     }
 
     const setCustomRange = (dateRange: DatesRangeValue) => {
-        timelapse.setStartDate(dayjs(dateRange[0]).endOf('day').toDate())
+        timelapse.setStartDate(dayjs(dateRange[0]).startOf('day').toDate())
         timelapse.setStopDate(dayjs(dateRange[1]).endOf('day').toDate())
     }
 
