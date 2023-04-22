@@ -74,7 +74,11 @@ export class ServerStore {
 
     loadSettings = () => {
         localforge.getItem('host').then((value) => {
-            this.setHost(value as string)
+            if (value) {
+                this.setHost(value as string)
+            } else {
+                this.setHost(DEFAULT_HOST)
+            }
         })
     }
 
