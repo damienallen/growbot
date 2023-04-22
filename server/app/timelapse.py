@@ -21,7 +21,7 @@ def to_url(file_path: Path) -> str:
     return str(file_path).replace("/data", "/media")
 
 
-def load_captures(query: TableList):
+def load_captures(query: TableList) -> list[Capture]:
     records = json.loads(query.to_json(columns=["_time", "brightness", "url", "dark"]))
 
     captures = []
@@ -38,7 +38,7 @@ def load_captures(query: TableList):
     return captures
 
 
-def get_captures():
+def get_captures() -> list[Capture]:
     start = int(datetime(2020, 4, 6).timestamp())
     stop = int(datetime(2020, 4, 10).timestamp())
 
