@@ -8,7 +8,7 @@ import { Store } from './root'
 
 export class UIStore {
 
-    public colorScheme: ColorScheme = 'light'
+    public colorScheme: ColorScheme = 'dark'
 
     toggleColorScheme = () => {
         this.colorScheme = this.colorScheme === 'dark' ? 'light' : 'dark'

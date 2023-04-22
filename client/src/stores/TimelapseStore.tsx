@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { Store } from './root'
+import { DateValue } from '@mantine/dates'
 
 
 
@@ -20,6 +21,9 @@ export class TimelapseStore {
     interval: number = 0
     windowSize: string = 'Day'
 
+    startDate: DateValue = null
+    stopDate: DateValue = null
+
     setPaused = (value: boolean) => {
         this.paused = value
         this.updateInterval()
@@ -35,6 +39,18 @@ export class TimelapseStore {
 
     setWindowSize = (value: string) => {
         this.windowSize = value
+    }
+
+    setStartDate = (value: DateValue) => {
+        this.startDate = value
+    }
+
+    setStopDate = (value: DateValue) => {
+        this.stopDate = value
+    }
+
+    get dateRange(): [DateValue, DateValue] {
+        return [this.startDate, this.stopDate]
     }
 
     togglePlayback = () => {
@@ -64,7 +80,6 @@ export class TimelapseStore {
     }
 
     setCaptures = (value: any[]) => {
-        console.log(value)
         this.captures = value as Capture[]
     }
 
@@ -84,7 +99,7 @@ export class TimelapseStore {
     }
 
     fetchCaptures = async () => {
-        const capturesUrl = `${this.root.server.hostname}/captures`
+        const capturesUrl = `${this.root.server.hostname}/captures/`
         const response = await fetch(capturesUrl)
         const data = await response.json()
         this.setCaptures(data.captures)

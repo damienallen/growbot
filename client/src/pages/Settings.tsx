@@ -88,7 +88,7 @@ export const Settings = observer(() => {
                         value={host}
                         onChange={(e) => setHost(e.currentTarget.value)}
                         onBlur={(e) => server.setHost(e.currentTarget.value)}
-                        icon={<IconServer size={rem(16)} />}
+                        icon={<IconServer size={rem(18)} />}
                     />
                 </Group>
             </Card>
