@@ -4,7 +4,14 @@ import localforge from 'localforage'
 import { ColorScheme } from '@mantine/core'
 
 
-export const DEFAULT_HOST ='localhost:4242'
+export const DEFAULT_HOST = 'localhost:4242'
+
+export interface Capture {
+    time: string
+    brightness: number
+    dark: boolean
+    url: string
+}
 
 export class Store {
     public ui: UIStore
@@ -83,7 +90,7 @@ export class TimelapseStore {
 
     paused: boolean = true
     index: number = 0
-    captures: string[] = []
+    captures: Capture[] = []
 
     speed: number = 1
     interval: number = 0
@@ -132,19 +139,20 @@ export class TimelapseStore {
         this.index = this.index < this.captures.length - 1 ? this.index + 1 : 0
     }
 
-    setCaptures = (value: string[]) => {
-        this.captures = value
+    setCaptures = (value: any[]) => {
+        console.log(value)
+        this.captures = value as Capture[]
     }
 
 
     get currentImg() {
-        return this.root.server.hostname + this.captures[this.index]
+        return this.captures[this.index].url
     }
 
     get currentTimestamp() {
-        const filepath = this.captures[this.index]
-        if (filepath) {
-            const segs = filepath.split('/')
+        const capture = this.captures[this.index]
+        if (capture) {
+            const segs = capture.url.split('/')
             return segs[segs.length - 1].replace('.jpg', '')
         }
 
