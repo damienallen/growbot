@@ -146,7 +146,7 @@ export class TimelapseStore {
 
 
     get currentImg() {
-        return this.captures[this.index].url
+        return this.captures[this.index] ? this.captures[this.index].url : undefined
     }
 
     get currentTimestamp() {
