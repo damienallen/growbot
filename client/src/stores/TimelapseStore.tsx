@@ -1,7 +1,33 @@
 import { makeAutoObservable } from 'mobx'
+import localforge from 'localforage'
 import { Store } from './root'
 import { DateValue } from '@mantine/dates'
+import dayjs from 'dayjs'
 
+const getDay = (date: Date) => {
+    const day = date.getDay()
+    return day === 0 ? 6 : day - 1
+}
+
+export const startOfWeek = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate() - getDay(date) - 1)
+}
+
+export const endOfWeek = (date: Date) => {
+    return dayjs(new Date(date.getFullYear(), date.getMonth(), date.getDate() + (6 - getDay(date))))
+        .endOf('date')
+        .toDate()
+}
+
+export const startOfMonth = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1)
+}
+
+export const endOfMonth = (date: Date) => {
+    return dayjs(new Date(date.getFullYear(), date.getMonth(), dayjs(date).daysInMonth()))
+        .endOf('date')
+        .toDate()
+}
 
 
 export interface Capture {
@@ -21,8 +47,8 @@ export class TimelapseStore {
     interval: number = 0
     windowSize: string = 'Day'
 
-    startDate: DateValue = null
-    stopDate: DateValue = null
+    startDate: DateValue = new Date()
+    stopDate: DateValue = new Date()
 
     setPaused = (value: boolean) => {
         this.paused = value
@@ -37,16 +63,49 @@ export class TimelapseStore {
         }
     }
 
-    setWindowSize = (value: string) => {
+    setWindowSize = (value: string, update: boolean = true) => {
         this.windowSize = value
+        localforge.setItem('windowSize', this.windowSize)
+
+        if (update) {
+            switch (value) {
+                case 'Day':
+                    if (this.startDate) {
+                        this.setStopDate(new Date(this.startDate))
+                    }
+                    break
+                case 'Week':
+                    if (this.startDate) {
+                        const start = dayjs(startOfWeek(this.startDate)).add(1, 'day').toDate()
+                        const stop = endOfWeek(this.startDate)
+                        this.setStartDate(start)
+                        this.setStopDate(stop)
+                    }
+                    break
+                case 'Month':
+                    if (this.startDate) {
+                        const start = startOfMonth(this.startDate)
+                        const stop = endOfMonth(this.startDate)
+                        this.setStartDate(start)
+                        this.setStopDate(stop)
+                    }
+                    break
+                default:
+                    break
+            }
+        }
     }
 
     setStartDate = (value: DateValue) => {
         this.startDate = value
+        console.log('Start:', value)
+        localforge.setItem('startDate', this.startDate)
     }
 
     setStopDate = (value: DateValue) => {
         this.stopDate = value
+        console.log('Stop: ', value)
+        localforge.setItem('stopDate', this.stopDate)
     }
 
     get dateRange(): [DateValue, DateValue] {
@@ -107,8 +166,32 @@ export class TimelapseStore {
     }
 
 
+    loadSettings = () => {
+        localforge.getItem('windowSize').then((value) => {
+            if (value) {
+                this.setWindowSize(value as string, false)
+            } else {
+                this.setWindowSize('Day', false)
+            }
+        })
+
+        localforge.getItem('startDate').then((value) => {
+            if (value) {
+                this.setStartDate(new Date(value as string))
+            }
+        })
+
+        localforge.getItem('stopDate').then((value) => {
+            if (value) {
+                this.setStopDate(new Date(value as string))
+            }
+        })
+    }
+
+
     constructor(public root: Store) {
         makeAutoObservable(this)
+        this.loadSettings()
     }
 
 }
