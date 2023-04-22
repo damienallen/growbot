@@ -14,7 +14,7 @@ class Capture:
     time: str
     brightness: float
     dark: bool
-    url: str = ""
+    url: str
 
 
 def to_url(file_path: Path) -> str:
@@ -22,9 +22,7 @@ def to_url(file_path: Path) -> str:
 
 
 def load_captures(query: TableList):
-    records = json.loads(
-        query.to_json(columns=["_time", "_value", "dark"] if False else None)
-    )
+    records = json.loads(query.to_json(columns=["_time", "brightness", "url", "dark"]))
 
     captures = []
     for record in records:
@@ -60,7 +58,4 @@ def get_captures():
 def get_captures_from_file() -> list[str]:
     file_list = [to_url(f) for f in (CAPTURE_DIR / "2023").glob("*.jpg")]
     file_list.sort()
-    return file_list
-    return file_list
-    return file_list
     return file_list
