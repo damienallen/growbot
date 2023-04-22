@@ -1,16 +1,16 @@
-from influxdb_client.client.write_api import SYNCHRONOUS
-from influxdb_client import InfluxDBClient
 from decouple import config
+from influxdb_client import InfluxDBClient
+from influxdb_client.client.write_api import SYNCHRONOUS
 
 """
 Initialize connection to InfluxDB container 
 """
 bucket_name = "growbot"
-org_name = "pi"
+org_name = "pi4"
 
 client = InfluxDBClient(
     url="http://localhost:8086",
-    token=config("DOCKER_INFLUXDB_INIT_ADMIN_TOKEN"),
+    token=config("INFLUXDB_TOKEN"),
     org=org_name,
 )
 
