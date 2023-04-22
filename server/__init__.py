@@ -9,8 +9,12 @@ with open(ROOT / "pyproject.toml", "rb") as f:
     VERSION = tomllib.load(f)["tool"]["poetry"]["version"]
 
 # Timeseries data
-DATA_DIR = Path(os.environ["DATA_DIR"])
-CAPTURE_DIR = Path(os.environ["CAPTURE_DIR"])
+if os.environ.get("DATA_DIR"):
+    DATA_DIR = Path(os.environ["DATA_DIR"])
+    CAPTURE_DIR = Path(os.environ["CAPTURE_DIR"])
+else:
+    DATA_DIR = ROOT / "data"
+    CAPTURE_DIR = DATA_DIR / "captures"
 
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 CAPTURE_DIR.mkdir(parents=True, exist_ok=True)

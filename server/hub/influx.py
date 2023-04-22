@@ -5,8 +5,9 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 """
 Initialize connection to InfluxDB container 
 """
-bucket_name = "growbot"
-org_name = "pi4"
+RECORDS_BUCKET = "records"
+CAPTURES_BUCKET = "captures"
+org_name = "growbot"
 
 client = InfluxDBClient(
     url="http://localhost:8086",

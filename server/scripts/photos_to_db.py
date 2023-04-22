@@ -1,9 +1,10 @@
-from influxdb_client import Point
-from server.hub.influx import write_api, bucket_name
 import subprocess
+from datetime import datetime
+
+from influxdb_client import Point
 
 from server import CAPTURE_DIR
-from datetime import datetime
+from server.hub.influx import CAPTURES_BUCKET, write_api
 
 
 def run():
@@ -24,7 +25,7 @@ def run():
             .tag("path", file_path)
             .time(int(datetime.strptime(file_name, "%Y%m%d_%H%M%S.jpg").timestamp()))
         )
-        write_api.write(bucket=bucket_name, record=p)
+        write_api.write(bucket=CAPTURES_BUCKET, record=p)
         print(p)
 
 

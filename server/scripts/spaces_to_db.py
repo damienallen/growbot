@@ -1,14 +1,13 @@
-from influxdb_client import Point
-from tempfile import NamedTemporaryFile
 import subprocess
-import httpx
-
-
-from server.hub.spaces import client
-from server.hub.influx import write_api, bucket_name
 from datetime import datetime
+from tempfile import NamedTemporaryFile
+
+import httpx
+from influxdb_client import Point
 from tqdm import tqdm
 
+from server.hub.influx import CAPTURES_BUCKET, write_api
+from server.hub.spaces import client
 
 ORIGIN_ENDPOINT = "https://growcam.ams3.digitaloceanspaces.com"
 DARK_THRESHOLD = 0.1
@@ -41,7 +40,7 @@ def run():
             .tag("dark", dark)
             .time(datetime.strptime(key, "photo_%Y%m%d_%H%M%S.jpg"))
         )
-        write_api.write(bucket=bucket_name, record=p)
+        write_api.write(bucket=CAPTURES_BUCKET, record=p)
 
 
 if __name__ == "__main__":

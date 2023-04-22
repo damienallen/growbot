@@ -1,4 +1,4 @@
-from server.hub.influx import client, delete_api, bucket_name, org_name
+from server.hub.influx import CAPTURES_BUCKET, client, delete_api, org_name
 
 
 def run():
@@ -8,7 +8,7 @@ def run():
     start = "1900-01-01T00:00:00Z"
     stop = "2050-01-01T00:00:00Z"
     delete_api.delete(
-        start, stop, '_measurement="photo"', bucket=bucket_name, org=org_name
+        start, stop, '_measurement="photo"', bucket=CAPTURES_BUCKET, org=org_name
     )
 
     client.close()
