@@ -98,13 +98,13 @@ export class TimelapseStore {
 
     setStartDate = (value: DateValue) => {
         this.startDate = value
-        console.log('Start:', value)
+        console.debug('Start:', value)
         localforge.setItem('startDate', this.startDate)
     }
 
     setStopDate = (value: DateValue) => {
         this.stopDate = value
-        console.log('Stop: ', value)
+        console.debug('Stop: ', value)
         localforge.setItem('stopDate', this.stopDate)
     }
 
@@ -155,6 +155,11 @@ export class TimelapseStore {
         }
 
         return ''
+    }
+
+    get captureDates(): string[] {
+        // TODO: endpoint for this
+        return this.captures.map((c: Capture) => (dayjs(c.time).startOf('day').format()))
     }
 
     fetchCaptures = async () => {

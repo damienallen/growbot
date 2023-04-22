@@ -66,6 +66,11 @@ export const RangeSelect = observer(() => {
     }
 
 
+    const excludeEmpty = (date: Date) => {
+        const dateStr = dayjs(date).startOf('day').format()
+        return !timelapse.captureDates.includes(dateStr)
+    }
+
     let select = null
     switch (timelapse.windowSize) {
         case 'Day':
@@ -75,6 +80,7 @@ export const RangeSelect = observer(() => {
                     classNames={{
                         root: classes.root,
                     }}
+                    excludeDate={excludeEmpty}
                     valueFormat='YYYY-MM-DD'
                     placeholder='Pick day'
                     value={timelapse.startDate}
