@@ -43,13 +43,15 @@ def get_captures():
     stop = int(datetime(2020, 4, 10).timestamp())
 
     query = query_api.query(
-        'import "influxdata/influxdb/schema"'
-        f'from(bucket:"{CAPTURES_BUCKET}")'
-        f"|> range(start: {start}, stop: {stop})"
-        '|> filter(fn: (r) => r["_measurement"] == "photo")'
-        '|> filter(fn: (r) => r["_field"] == "url" or r["_field"] == "brightness")'
-        "|> schema.fieldsAsCols()"
-        "|> yield()"
+        f"""
+        import "influxdata/influxdb/schema"
+        from(bucket:"{CAPTURES_BUCKET}")
+        |> range(start: {start}, stop: {stop})
+        |> filter(fn: (r) => r["_measurement"] == "photo")
+        |> filter(fn: (r) => r["_field"] == "url" or r["_field"] == "brightness")
+        |> schema.fieldsAsCols()
+        |> yield()
+        """
     )
 
     return load_captures(query)
