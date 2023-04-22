@@ -26,7 +26,7 @@ pi-bash:
 
 # pi4-server
 camera-pull:
-	rsync -azP pi@pi4:/home/pi/growbot/data/captures ~/growbot/data
+	rsync -azP pi@pi4:/home/pi/growbot/data/ ~/growbot/data/
 
 
 # crony
