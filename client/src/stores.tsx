@@ -151,7 +151,7 @@ export class TimelapseStore {
 
     get currentTimestamp() {
         const capture = this.captures[this.index]
-        if (capture) {
+        if (capture?.url) {
             const segs = capture.url.split('/')
             return segs[segs.length - 1].replace('.jpg', '')
         }
