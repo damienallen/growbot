@@ -5,6 +5,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 """
 Initialize connection to InfluxDB container 
 """
+TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
 RECORDS_BUCKET = "records"
 CAPTURES_BUCKET = "captures"
 org_name = "growbot"

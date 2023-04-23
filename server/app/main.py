@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pandas as pd
 from fastapi import FastAPI, Request
@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 
 from server import DATA_DIR, VERSION
 from server.app.timelapse import get_captured_dates, get_captures
+from server.hub.influx import TIMESTAMP_FORMAT
 
 app = FastAPI()
 app.mount("/media", StaticFiles(directory=DATA_DIR), name="media")
@@ -28,7 +29,11 @@ def index(request: Request):
 
 
 @app.get("/captures/")
-def captures(start: str, stop: str):
+def captures(
+    start: str = (datetime.now() - timedelta(weeks=1)).strftime(TIMESTAMP_FORMAT),
+    stop: str = datetime.now().strftime(TIMESTAMP_FORMAT),
+):
+    print(start, stop)
     captures = get_captures(start, stop)
     return {"count": len(captures), "captures": captures}
 

@@ -43,6 +43,7 @@ def extract_dates(query: TableList) -> list[Capture]:
 
 
 def get_captures(start: str, stop: str) -> list[Capture]:
+    print(start, stop)
     query = query_api.query(
         f"""
         import "influxdata/influxdb/schema"
