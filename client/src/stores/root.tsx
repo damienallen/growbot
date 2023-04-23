@@ -3,8 +3,6 @@ import { UIStore } from './UIStore'
 import { TimelapseStore } from './TimelapseStore'
 import { ServerStore } from './ServerStore'
 
-
-
 export class Store {
     public ui: UIStore
     public timelapse: TimelapseStore
@@ -16,8 +14,6 @@ export class Store {
         this.server = new ServerStore(this)
     }
 }
-
-
 
 // Store helpers
 export const store = new Store()

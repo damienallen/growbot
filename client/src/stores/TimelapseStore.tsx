@@ -29,7 +29,6 @@ export const endOfMonth = (date: Date) => {
         .toDate()
 }
 
-
 export interface Capture {
     time: string
     brightness: number
@@ -38,7 +37,6 @@ export interface Capture {
 }
 
 export class TimelapseStore {
-
     paused: boolean = true
     index: number = 0
     captures: Capture[] = []
@@ -48,8 +46,8 @@ export class TimelapseStore {
     interval: number = 0
     windowSize: string = 'Day'
 
-    startDate: DateValue = new Date()
-    stopDate: DateValue = new Date()
+    startDate: DateValue = null
+    stopDate: DateValue = null
 
     setPaused = (value: boolean) => {
         this.paused = value
@@ -147,7 +145,6 @@ export class TimelapseStore {
         this.captures = value as Capture[]
     }
 
-
     get currentImg() {
         return this.captures[this.index] ? this.captures[this.index].url : ''
     }
@@ -163,7 +160,7 @@ export class TimelapseStore {
     }
 
     setCaptureDates(value: string[]) {
-        this.captureDates = value.map((date: string) => (dayjs(date).startOf('day').format()))
+        this.captureDates = value.map((date: string) => dayjs(date).startOf('day').format())
     }
 
     fetchCaptures = async () => {
@@ -190,7 +187,6 @@ export class TimelapseStore {
         this.setCaptureDates(data.dates)
     }
 
-
     loadSettings = () => {
         localforge.getItem('windowSize').then((value) => {
             if (value) {
@@ -213,10 +209,8 @@ export class TimelapseStore {
         })
     }
 
-
     constructor(public root: Store) {
         makeAutoObservable(this)
         this.loadSettings()
     }
-
 }

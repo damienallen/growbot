@@ -2,11 +2,9 @@ import { makeAutoObservable } from 'mobx'
 import localforge from 'localforage'
 import { Store } from './root'
 
-
 export const DEFAULT_HOST = 'localhost:4242'
 
 export class ServerStore {
-
     host: string = DEFAULT_HOST
 
     setHost = (value: string) => {
@@ -36,6 +34,4 @@ export class ServerStore {
         makeAutoObservable(this)
         this.loadSettings()
     }
-
 }
-

@@ -1,12 +1,19 @@
-import { Container, createStyles, Grid, SimpleGrid, Skeleton, useMantineTheme, rem } from '@mantine/core'
-
+import {
+    Container,
+    createStyles,
+    Grid,
+    SimpleGrid,
+    Skeleton,
+    useMantineTheme,
+    rem,
+} from '@mantine/core'
 
 const useStyles = createStyles((theme) => ({
     container: {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 }))
 
@@ -21,7 +28,6 @@ export const Timeseries = () => {
         <Container className={classes.container} size="sm" px="md">
             <h1>Timeseries</h1>
             <SimpleGrid cols={2} spacing="md" breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-
                 <Skeleton height={PRIMARY_COL_HEIGHT} radius="md" animate={false} />
 
                 <Grid gutter="md">

@@ -3,11 +3,7 @@ import localforge from 'localforage'
 import { ColorScheme } from '@mantine/core'
 import { Store } from './root'
 
-
-
-
 export class UIStore {
-
     public colorScheme: ColorScheme = 'dark'
 
     toggleColorScheme = () => {
@@ -35,4 +31,3 @@ export class UIStore {
         this.loadSettings()
     }
 }
-

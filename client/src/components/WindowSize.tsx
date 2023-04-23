@@ -1,18 +1,18 @@
-import { Select, createStyles, rem } from "@mantine/core"
-import { useEffect, useState } from "react"
-import { observer } from "mobx-react"
+import { Select, createStyles, rem } from '@mantine/core'
+import { useEffect, useState } from 'react'
+import { observer } from 'mobx-react'
 import { IconCalendarTime } from '@tabler/icons-react'
 
-import { IconChevronDown } from "@tabler/icons-react"
-import { useStores } from "../stores/root"
+import { IconChevronDown } from '@tabler/icons-react'
+import { useStores } from '../stores/root'
 
 const useStyles = createStyles(() => ({
     root: {
-        width: 120
+        width: 120,
     },
     rightSection: {
-        pointerEvents: 'none'
-    }
+        pointerEvents: 'none',
+    },
 }))
 
 export const WindowSize = observer(() => {
@@ -33,7 +33,7 @@ export const WindowSize = observer(() => {
             rightSectionWidth={30}
             classNames={{
                 root: classes.root,
-                rightSection: classes.rightSection
+                rightSection: classes.rightSection,
             }}
             data={['Day', 'Week', 'Month', 'Custom']}
         />

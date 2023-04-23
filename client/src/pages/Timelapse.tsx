@@ -3,19 +3,18 @@ import { Canvas } from '../components/Canvas'
 import { WindowSize } from '../components/WindowSize'
 import { RangeSelect } from '../components/RangeSelect'
 
-
 const useStyles = createStyles((theme) => ({
     container: {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     window: {
         display: 'flex',
         flexDirection: 'row',
-        gap: theme.spacing.lg
-    }
+        gap: theme.spacing.lg,
+    },
 }))
 
 export const Timelapse = () => {
@@ -31,7 +30,9 @@ export const Timelapse = () => {
                 </div>
             </Group>
             <Grid>
-                <Grid.Col xs={12}><Canvas /></Grid.Col>
+                <Grid.Col xs={12}>
+                    <Canvas />
+                </Grid.Col>
             </Grid>
         </Container>
     )

@@ -24,25 +24,25 @@ const useStyles = createStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        color: '#fff'
+        color: '#fff',
     },
     header: {
         display: 'flex',
         justifyContent: 'space-between',
-        flex: 0
+        flex: 0,
     },
     footer: {
         display: 'flex',
         flexDirection: 'column',
-        flex: 0
+        flex: 0,
     },
     controls: {
         display: 'flex',
         justifyContent: 'space-between',
-        flex: 0
+        flex: 0,
     },
     button: {
-        padding: '0 4px'
+        padding: '0 4px',
     },
     slider: {
         flex: 0,
@@ -51,8 +51,8 @@ const useStyles = createStyles((theme) => ({
     },
     timestamp: {
         paddingRight: theme.spacing.sm,
-        fontWeight: 'bold'
-    }
+        fontWeight: 'bold',
+    },
 }))
 
 const OverlayIcon = (props: { icon: any }) => {
@@ -63,39 +63,39 @@ export const Overlay = observer(() => {
     const { timelapse } = useStores()
     const { classes } = useStyles()
 
-    const playbackIcon = timelapse.paused ?
-        <OverlayIcon icon={IconPlayerPlay} /> :
+    const playbackIcon = timelapse.paused ? (
+        <OverlayIcon icon={IconPlayerPlay} />
+    ) : (
         <OverlayIcon icon={IconPlayerPause} />
+    )
 
     let speedIcon
     switch (timelapse.speed) {
         case 0.5:
             speedIcon = <OverlayIcon icon={IconMultiplier05x} />
-            break;
+            break
 
         case 1:
             speedIcon = <OverlayIcon icon={IconMultiplier1x} />
-            break;
+            break
 
         case 1.5:
             speedIcon = <OverlayIcon icon={IconMultiplier15x} />
-            break;
+            break
 
         case 2:
             speedIcon = <OverlayIcon icon={IconMultiplier2x} />
-            break;
+            break
 
         default:
-            break;
+            break
     }
 
     return (
         <div className={classes.container}>
             <div className={classes.header}>
                 <div></div>
-                <div className={classes.timestamp}>
-                    {timelapse.currentTimestamp}
-                </div>
+                <div className={classes.timestamp}>{timelapse.currentTimestamp}</div>
             </div>
             <div className={classes.footer}>
                 <div className={classes.slider}>

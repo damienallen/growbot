@@ -8,12 +8,12 @@ const useStyles = createStyles((theme) => ({
     track: {
         '&:before': {
             backgroundColor: theme.colors.gray[2],
-            opacity: 0.5
-        }
+            opacity: 0.5,
+        },
     },
     bar: {
         backgroundColor: theme.white,
-        opacity: 0.75
+        opacity: 0.75,
     },
     mark: {
         width: rem(6),
@@ -21,16 +21,16 @@ const useStyles = createStyles((theme) => ({
         borderRadius: rem(6),
         transform: `translateX(-${rem(3)}) translateY(-${rem(2)})`,
         borderColor: theme.colors.gray[2],
-        opacity: 0.75
+        opacity: 0.75,
     },
     markFilled: {
         borderColor: theme.white,
-        opacity: 1
+        opacity: 1,
     },
     markLabel: {
         fontSize: theme.fontSizes.xs,
         marginTop: rem(-32),
-        color: theme.white
+        color: theme.white,
     },
     thumb: {
         height: rem(8),
@@ -51,11 +51,13 @@ export const ProgressSlider = observer(() => {
         setSliderValue(timelapse.index)
     }, [timelapse.index])
 
-    const marks = false ? [
-        { value: 25, label: '06:00' },
-        { value: 50, label: '12:00' },
-        { value: 75, label: '18:00' },
-    ] : undefined
+    const marks = false
+        ? [
+              { value: 25, label: '06:00' },
+              { value: 50, label: '12:00' },
+              { value: 75, label: '18:00' },
+          ]
+        : undefined
 
     return (
         <Slider

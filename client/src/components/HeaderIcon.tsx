@@ -1,11 +1,10 @@
 import { createStyles } from '@mantine/core'
 import { IconPlant } from '@tabler/icons-react'
 
-
 const useStyles = createStyles((theme) => ({
     container: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     icon: {
         height: '24px',
@@ -13,7 +12,7 @@ const useStyles = createStyles((theme) => ({
     },
     text: {
         marginLeft: theme.spacing.xs,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
 }))
 

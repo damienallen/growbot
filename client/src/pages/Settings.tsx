@@ -5,25 +5,25 @@ import { useStores } from '../stores/root'
 import { DEFAULT_HOST } from '../stores/ServerStore'
 import { useEffect, useState } from 'react'
 
-
 const useStyles = createStyles((theme) => ({
     container: {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     card: {
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-        margin: '12px 0'
+        margin: '12px 0',
     },
 
     item: {
         '& + &': {
             paddingTop: theme.spacing.sm,
             marginTop: theme.spacing.sm,
-            borderTop: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-                }`,
+            borderTop: `${rem(1)} solid ${
+                theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+            }`,
         },
     },
     switch: {
@@ -38,19 +38,18 @@ const useStyles = createStyles((theme) => ({
 
 const data = [
     {
-        "title": "Low water",
-        "description": "Water tank level below fill sensor"
+        title: 'Low water',
+        description: 'Water tank level below fill sensor',
     },
     {
-        "title": "Overheating",
-        "description": "Bucket air temperature exceeds maxiumum thredhold"
+        title: 'Overheating',
+        description: 'Bucket air temperature exceeds maxiumum thredhold',
     },
     {
-        "title": "Server health",
-        "description": "Issues with the backend or crony"
+        title: 'Server health',
+        description: 'Issues with the backend or crony',
     },
 ]
-
 
 export const Settings = observer(() => {
     const { server } = useStores()

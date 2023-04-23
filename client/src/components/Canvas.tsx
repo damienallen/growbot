@@ -15,8 +15,8 @@ const useStyles = createStyles((theme) => ({
     },
     canvas: {
         background: theme.colors.gray[9],
-        borderRadius: '0.5rem'
-    }
+        borderRadius: '0.5rem',
+    },
 }))
 
 export const Canvas = observer(() => {
