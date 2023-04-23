@@ -47,8 +47,9 @@ export const RangeSelect = observer(() => {
     const [value, setValue] = useState<Date | undefined>(undefined)
 
     const setDay = (date: DateValue) => {
-        timelapse.setStartDate(dayjs(date).startOf('day').toDate())
-        timelapse.setStopDate(dayjs(date).endOf('day').toDate())
+        timelapse.setStartDate(date)
+        timelapse.setStopDate(date)
+        timelapse.fetchCaptures()
     }
 
     const setWeek = (date: DateValue) => {
@@ -56,6 +57,7 @@ export const RangeSelect = observer(() => {
         if (date) {
             timelapse.setStartDate(dayjs(startOfWeek(date)).add(1, 'day').toDate())
             timelapse.setStopDate(endOfWeek(date))
+            timelapse.fetchCaptures()
         }
     }
 
@@ -63,12 +65,14 @@ export const RangeSelect = observer(() => {
         if (date) {
             timelapse.setStartDate(startOfMonth(date))
             timelapse.setStopDate(endOfMonth(date))
+            timelapse.fetchCaptures()
         }
     }
 
     const setCustomRange = (dateRange: DatesRangeValue) => {
-        timelapse.setStartDate(dayjs(dateRange[0]).startOf('day').toDate())
-        timelapse.setStopDate(dayjs(dateRange[1]).endOf('day').toDate())
+        timelapse.setStartDate(dateRange[0])
+        timelapse.setStopDate(dateRange[1])
+        timelapse.fetchCaptures()
     }
 
     const excludeEmpty = (date: Date) => {

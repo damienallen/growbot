@@ -3,6 +3,11 @@ import localforge from 'localforage'
 import { Store } from './root'
 import { DateValue } from '@mantine/dates'
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 const getDay = (date: Date) => {
     const day = date.getDay()
@@ -70,8 +75,9 @@ export class TimelapseStore {
             switch (value) {
                 case 'Day':
                     if (this.startDate) {
-                        this.setStartDate(dayjs(this.startDate).startOf('day').toDate())
-                        this.setStopDate(dayjs(this.startDate).endOf('day').toDate())
+                        this.setStartDate(this.startDate)
+                        this.setStopDate(this.startDate)
+                        this.fetchCaptures()
                     }
                     break
                 case 'Week':
@@ -80,6 +86,7 @@ export class TimelapseStore {
                         const stop = endOfWeek(this.startDate)
                         this.setStartDate(start)
                         this.setStopDate(stop)
+                        this.fetchCaptures()
                     }
                     break
                 case 'Month':
@@ -88,6 +95,7 @@ export class TimelapseStore {
                         const stop = endOfMonth(this.startDate)
                         this.setStartDate(start)
                         this.setStopDate(stop)
+                        this.fetchCaptures()
                     }
                     break
                 default:
@@ -98,15 +106,17 @@ export class TimelapseStore {
 
     setStartDate = (value: DateValue) => {
         this.startDate = value
-        console.debug('Start:', value)
+            ? new Date(value.getFullYear(), value.getMonth(), value.getDate())
+            : null
+        console.debug('Start:', this.startDate)
         localforge.setItem('startDate', this.startDate)
-
-        this.fetchCaptures()
     }
 
     setStopDate = (value: DateValue) => {
         this.stopDate = value
-        console.debug('Stop: ', value)
+            ? new Date(value.getFullYear(), value.getMonth(), value.getDate(), 23, 59, 59)
+            : null
+        console.debug('Stop: ', this.stopDate)
         localforge.setItem('stopDate', this.stopDate)
     }
 

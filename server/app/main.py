@@ -33,7 +33,6 @@ def captures(
     start: str = (datetime.now() - timedelta(weeks=1)).strftime(TIMESTAMP_FORMAT),
     stop: str = datetime.now().strftime(TIMESTAMP_FORMAT),
 ):
-    print(start, stop)
     captures = get_captures(start, stop)
     return {"count": len(captures), "captures": captures}
 
