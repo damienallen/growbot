@@ -1,12 +1,7 @@
 import { useState } from 'react'
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation } from 'react-router-dom'
 import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core'
-import {
-    IconLayoutBoardSplit,
-    IconCamera,
-    IconSettings,
-    IconChartLine,
-} from '@tabler/icons-react'
+import { IconLayoutBoardSplit, IconCamera, IconSettings, IconChartLine } from '@tabler/icons-react'
 
 import { HeaderIcon } from './HeaderIcon'
 import { appVersion } from '../App'
@@ -15,16 +10,18 @@ import { ThemeToggle } from './ThemeToggle'
 const useStyles = createStyles((theme) => ({
     navbar: {
         flex: 0,
-        height: '100%'
+        height: '100%',
     },
     header: {
         paddingBottom: theme.spacing.md,
         marginBottom: `calc(${theme.spacing.md} * 1.5)`,
-        borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]}`,
+        borderBottom: `${rem(1)} solid ${
+            theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+        }`,
     },
     footer: {
         marginTop: theme.spacing.md,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     link: {
         ...theme.fn.focusStyles(),
@@ -39,7 +36,8 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 500,
 
         '&:hover': {
-            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+            backgroundColor:
+                theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
             color: theme.colorScheme === 'dark' ? theme.white : theme.black,
 
             [`& .${getStylesRef('icon')}`]: {
@@ -54,7 +52,8 @@ const useStyles = createStyles((theme) => ({
     },
     linkActive: {
         '&, &:hover': {
-            backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
+            backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor })
+                .background,
             color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
             [`& .${getStylesRef('icon')}`]: {
                 color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
@@ -74,7 +73,9 @@ export const Nav = () => {
     const { classes, cx } = useStyles()
     const location = useLocation()
 
-    const [active, setActive] = useState(location.pathname === '/' ? 'overview' : location.pathname.replace('/', ''))
+    const [active, setActive] = useState(
+        location.pathname === '/' ? 'overview' : location.pathname.replace('/', '')
+    )
 
     const links = data.map((item) => (
         <Link

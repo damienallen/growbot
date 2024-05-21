@@ -1,12 +1,19 @@
-import { Container, createStyles, Grid, SimpleGrid, Skeleton, useMantineTheme, rem } from '@mantine/core'
-
+import {
+    Container,
+    createStyles,
+    Grid,
+    SimpleGrid,
+    Skeleton,
+    useMantineTheme,
+    rem,
+} from '@mantine/core'
 
 const useStyles = createStyles((theme) => ({
     container: {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 }))
 

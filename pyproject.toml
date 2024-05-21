@@ -6,11 +6,15 @@ authors = ["Damien Allen <dev@dallen.co>"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+
 asyncio-mqtt = "^0.16.1"
 boto3 = "^1.26.108"
 botocore = "^1.29.108"
 fastapi = "^0.92.0"
+httpx = "^0.24.0"
 pandas = "^1.5.3"
+python-decouple = "^3.8"
+tqdm = "^4.65.0"
 uvicorn = "^0.20.0"
 
 influxdb-client = {extras = ["async", "ciso"], version = "^1.36"}

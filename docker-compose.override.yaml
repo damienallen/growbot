@@ -10,7 +10,7 @@ services:
         - ./data:/data
     command: ["uvicorn", "server.app.main:app", "--reload", "--host", "0.0.0.0"]
     ports:
-      - "8888:8000"
+      - "4242:8000"
 
   hub:
     <<: *local_volumes

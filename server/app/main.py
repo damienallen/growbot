@@ -1,12 +1,13 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pandas as pd
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from server import DATA_DIR
-from server.app.timelapse import get_captures
+from server import DATA_DIR, VERSION
+from server.app.timelapse import get_captured_dates, get_captures
+from server.hub.influx import TIMESTAMP_FORMAT
 
 app = FastAPI()
 app.mount("/media", StaticFiles(directory=DATA_DIR), name="media")
@@ -22,10 +23,24 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+def index(request: Request):
+    return {"version": f"v{VERSION}"}
+
+
 @app.get("/captures/")
-def captures(request: Request):
-    captures = get_captures()
+def captures(
+    start: str = (datetime.now() - timedelta(weeks=1)).strftime(TIMESTAMP_FORMAT),
+    stop: str = datetime.now().strftime(TIMESTAMP_FORMAT),
+):
+    captures = get_captures(start, stop)
     return {"count": len(captures), "captures": captures}
+
+
+@app.get("/captures/available/")
+def captures_available(request: Request):
+    dates = get_captured_dates()
+    return {"count": len(dates), "dates": dates}
 
 
 @app.get("/sensors/")

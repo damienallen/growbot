@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { createStyles } from '@mantine/core'
 
 import { useCanvas } from '../hooks/useCanvas'
-import { useStores } from '../stores'
+import { useStores } from '../stores/root'
 import { useEffect, useRef } from 'react'
 import { Overlay } from './Overlay'
 
@@ -15,8 +15,8 @@ const useStyles = createStyles((theme) => ({
     },
     canvas: {
         background: theme.colors.gray[9],
-        borderRadius: '0.5rem'
-    }
+        borderRadius: '0.5rem',
+    },
 }))
 
 export const Canvas = observer(() => {

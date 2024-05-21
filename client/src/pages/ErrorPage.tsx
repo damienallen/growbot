@@ -1,6 +1,5 @@
 import { createStyles, Title, Text, Button, Container, Group, rem } from '@mantine/core'
-import { useRouteError } from "react-router-dom"
-
+import { useRouteError } from 'react-router-dom'
 
 const useStyles = createStyles((theme) => ({
     root: {
